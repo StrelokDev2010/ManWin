@@ -9,6 +9,8 @@ document.querySelector('[data-setting="background"]')?.parentElement.remove();
 document.querySelector('#background-color')?.parentElement.remove();
 document.querySelector('#background-opacity')?.parentElement.remove();
 document.querySelector('#restart-rtss')?.remove();
+document.querySelector('[data-view="profiles-view"]')?.remove();
+document.querySelector('#profiles-view')?.remove();
 const advancedOptions = document.querySelector('.large-checks');
 if (advancedOptions) advancedOptions.insertAdjacentHTML('beforeend', '<label><input type="checkbox" data-setting="power"> Consumo</label><label><input type="checkbox" data-setting="memoryPercent"> Memoria en porcentaje</label><label><input type="checkbox" data-setting="frametimeGraph"> Gráfica de frametime</label>');
 if (advancedOptions?.closest('.card')) {
@@ -18,6 +20,7 @@ if (advancedOptions?.closest('.card')) {
   if (heading) heading.textContent = 'Elementos del OSD';
   if (description) description.textContent = 'Activa las métricas y bloques visuales que quieres mostrar dentro del juego.';
 }
+if (advancedOptions?.closest('.card')) advancedOptions.closest('.card').insertAdjacentHTML('beforeend', '<div class="fps-limit-card"><h3>Límite de FPS</h3><p class="muted">Aplica un límite al juego activo detectado por RTSS. Usa 0 para quitar el límite.</p><div class="actions"><input id="osd-fps-limit" class="text-input" type="number" min="0" placeholder="Sin límite"><button id="apply-fps-limit" class="primary">Aplicar límite</button></div></div>');
 const designCard = document.querySelector('.design-card');
 const usageNav = document.createElement('button');
 usageNav.className = 'nav';
@@ -129,7 +132,8 @@ function renderProfiles(apps, value){
   });
 }
 
-document.querySelector('#save-profile').onclick = () => {
+const saveProfileButton = document.querySelector('#save-profile');
+if (saveProfileButton) saveProfileButton.onclick = () => {
   const name = document.querySelector('#profile-name').value.trim();
   if(!name){ showToast(localeText('Selecciona un ejecutable', 'Select an executable')); return; }
   const profiles = JSON.parse(localStorage.getItem('mangoProfiles') || '{}');
@@ -137,4 +141,10 @@ document.querySelector('#save-profile').onclick = () => {
   localStorage.setItem('mangoProfiles', JSON.stringify(profiles));
   window.chrome?.webview?.postMessage({ type: 'saveProfile', executable: name, fpsLimit: Number(profiles[name].fpsLimit) || 0 });
 };
+document.querySelector('#apply-fps-limit')?.addEventListener('click', () => {
+  const executable = document.querySelector('#app-name')?.textContent?.trim() || '';
+  const limit = Number(document.querySelector('#osd-fps-limit')?.value || 0);
+  if (!executable || executable === 'Ninguna' || executable === 'None') { showToast(localeText('Abre un juego detectado por RTSS', 'Open a game detected by RTSS')); return; }
+  window.chrome?.webview?.postMessage({ type: 'saveProfile', executable, fpsLimit: Number.isFinite(limit) ? Math.max(0, Math.trunc(limit)) : 0 });
+});
 send('status');

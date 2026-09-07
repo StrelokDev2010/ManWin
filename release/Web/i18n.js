@@ -11,7 +11,7 @@
       eyebrow: 'PERFORMANCE OVERLAY', system: 'ESTADO DEL SISTEMA', hero: 'Controla tu OSD desde una interfaz limpia.',
       heroText: 'ManWin usa RTSS para dibujar el overlay dentro del juego.', rtss: 'RTSS', activeApp: 'Aplicación activa', none: 'Ninguna',
       openGame: 'Abre un juego detectado por RTSS.', detected: 'Aplicaciones detectadas', selected: 'Perfil seleccionado', executable: 'Ejecutable',
-      fpsLimit: 'Límite FPS', noLimit: 'Sin límite', save: 'Guardar perfil', localProfiles: 'Los perfiles se guardan localmente.',
+      fpsLimit: 'Límite FPS', noLimit: 'Sin límite', save: 'Guardar perfil', localProfiles: 'Los perfiles se guardan localmente.', fpsLimitCard: 'Límite de FPS', fpsLimitText: 'Aplica un límite al juego activo detectado por RTSS. Usa 0 para quitar el límite.', applyLimit: 'Aplicar límite',
       elements: 'Elementos del OSD', elementsText: 'Activa las métricas y bloques visuales que quieres mostrar dentro del juego.',
       gpu: 'GPU', cpu: 'CPU', ram: 'RAM', vram: 'VRAM', fps: 'FPS', frametime: 'Frametime', clocks: 'Frecuencias', power: 'Consumo',
       memoryPercent: 'Memoria en porcentaje', graph: 'Gráfica de frametime', metrics: 'Métricas del overlay',
@@ -30,7 +30,7 @@
       eyebrow: 'PERFORMANCE OVERLAY', system: 'SYSTEM STATUS', hero: 'Control your OSD from a clean interface.',
       heroText: 'ManWin uses RTSS to draw the overlay inside the game.', rtss: 'RTSS', activeApp: 'Active application', none: 'None',
       openGame: 'Open a game detected by RTSS.', detected: 'Detected applications', selected: 'Selected profile', executable: 'Executable',
-      fpsLimit: 'FPS limit', noLimit: 'No limit', save: 'Save profile', localProfiles: 'Profiles are saved locally.',
+      fpsLimit: 'FPS limit', noLimit: 'No limit', save: 'Save profile', localProfiles: 'Profiles are saved locally.', fpsLimitCard: 'FPS limit', fpsLimitText: 'Apply a limit to the active game detected by RTSS. Use 0 to remove the limit.', applyLimit: 'Apply limit',
       elements: 'OSD elements', elementsText: 'Enable the metrics and visual blocks you want to show in-game.',
       gpu: 'GPU', cpu: 'CPU', ram: 'RAM', vram: 'VRAM', fps: 'FPS', frametime: 'Frametime', clocks: 'Clocks', power: 'Power',
       memoryPercent: 'Memory percentage', graph: 'Frametime graph', metrics: 'Overlay metrics',
@@ -69,6 +69,7 @@
     document.querySelectorAll('[data-setting]').forEach(input => { const label = labels[input.dataset.setting]; if (label) input.parentElement.lastChild.nodeValue = ` ${label}`; });
     text('#design-view .section-intro .eyebrow', t.customization); text('#design-view .section-intro h2', t.design); text('#design-view .section-intro .muted', t.selectMetrics);
     text('.design-card h3', t.metrics); text('.design-card p', t.metricsText);
+    text('.fps-limit-card h3', t.fpsLimitCard); text('.fps-limit-card p', t.fpsLimitText); text('#apply-fps-limit', t.applyLimit);
     const usage = document.querySelector('#usage-view');
     if (usage) usage.innerHTML = `<div class="section-intro"><p class="eyebrow">${t.firstSteps}</p><h2>${t.howUse}</h2><p class="muted">${t.howText}</p></div><article class="card"><h3>${t.activate}</h3><p class="muted">${t.activateText}</p><ol class="setup-steps"><li>${t.step1}</li><li>${t.step2}</li><li>${t.step3}</li><li>${t.step4}</li><li>${t.step5}</li></ol><p class="muted profile-note">${t.providers}</p></article>`;
   }

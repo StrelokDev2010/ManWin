@@ -62,24 +62,9 @@ release/
   runtimes/                   Loader nativo de WebView2
 ```
 
-## Compilar desde el codigo fuente
-
-```powershell
-dotnet build src/MangoHudWindows/MangoHudWindows.csproj
-```
-
-El codigo fuente no se incluye en esta rama de distribucion. El proyecto genera
-una aplicacion x86 para mantener compatibilidad con la interfaz de memoria
-compartida de RTSS.
-
 ## Limitaciones actuales
 
 - Los valores de hardware dependen de los proveedores configurados en RTSS.
 - La escritura de limites FPS por perfil aun esta preparada para una siguiente
   etapa de integracion.
 - OverlayEditor debe permanecer activo en RTSS para mostrar el layout.
-
-## Licencia
-
-Proyecto en desarrollo. Agrega aqui la licencia que quieras utilizar antes de
-publicar una version distribuible.

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ManWin</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>.language-picker{display:grid;gap:7px;margin:24px 14px 0;color:#8993a5;font-size:12px}.language-picker select{background:#171c25;color:#edf2fb;border:1px solid #394657;border-radius:7px;padding:8px}</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="dot"></span><span>ManWin <b>Performance Overlay</b></span></div>
+    <nav><button class="nav active" data-view="dashboard-view">Dashboard</button><button class="nav" data-view="profiles-view">Perfiles</button><button class="nav" data-view="design-view">Diseño OSD</button></nav>
+    <div class="language-picker"><label for="language-select">Idioma</label><select id="language-select"><option value="es">Español</option><option value="en">English</option></select></div>
+    <div class="side-note">VersiÃ³n 0.1<br><span>RTSS backend</span></div>
+  </aside>
+  <main>
+    <header><div><p class="eyebrow">PERFORMANCE OVERLAY</p><h1 id="page-title">Dashboard</h1></div><div id="connection" class="pill offline">Comprobando RTSS…</div></header>
+    <section id="dashboard-view" class="view">
+    <section class="hero"><div><p class="eyebrow">ESTADO DEL SISTEMA</p><h2>Controla tu OSD desde una interfaz limpia.</h2><p class="muted">ManWin usa RTSS para dibujar el overlay dentro del juego.</p></div><div class="orb">FPS</div></section>
+    <section class="grid">
+      <article class="card"><div class="card-head"><h3>RTSS</h3><span class="status-dot"></span></div><p id="rtss-version" class="metric">—</p><p id="rtss-message" class="muted">Buscando memoria compartida…</p></article>
+      <article class="card"><div class="card-head"><h3>Aplicación activa</h3><span class="tag">LIVE</span></div><p id="app-name" class="metric metric-small">Ninguna</p><p id="app-stats" class="muted">Abre un juego detectado por RTSS.</p></article>
+    </section>
+    </section>
+    <section id="profiles-view" class="view hidden">
+      <div class="section-intro"><p class="eyebrow">CONFIGURACIÓN POR JUEGO</p><h2>Perfiles</h2><p class="muted">Guarda preferencias independientes para cada ejecutable detectado por RTSS.</p></div>
+      <div class="profile-layout"><article class="card"><h3>Aplicaciones detectadas</h3><div id="profile-list" class="profile-list"><p class="muted">Esperando aplicaciones…</p></div></article><article class="card"><h3>Perfil seleccionado</h3><label class="field-label">Ejecutable<input id="profile-name" class="text-input" placeholder="vkcube.exe"></label><label class="field-label">Límite FPS<input id="profile-fps" class="text-input" type="number" min="0" placeholder="Sin límite"></label><button id="save-profile" class="primary">Guardar perfil</button><p class="muted profile-note">Los perfiles se guardan localmente. La escritura de límites en RTSS será el siguiente paso.</p></article></div>
+    </section>
+    <section id="design-view" class="view hidden">
+      <article class="card overlay-config"><h3>Elementos del OSD</h3><p class="muted">Activa o desactiva cada bloque del diseño MangoHud Clean.</p><div class="large-checks"><label><input type="checkbox" data-setting="fps" checked> FPS</label><label><input type="checkbox" data-setting="frametime" checked> Frametime</label><label><input type="checkbox" data-setting="cpu" checked> CPU</label><label><input type="checkbox" data-setting="gpu" checked> GPU</label><label><input type="checkbox" data-setting="ram" checked> RAM</label><label><input type="checkbox" data-setting="vram" checked> VRAM</label><label><input type="checkbox" data-setting="clocks" checked> Frecuencias</label><label><input type="checkbox" data-setting="background" checked> Fondo</label></div><div class="actions"><label>Color <input id="background-color" type="color" value="#1A1F2B"></label><label>Transparencia <input id="background-opacity" type="range" min="0" max="100" value="85"></label></div><div class="actions"><button id="restart-rtss" class="primary">Reiniciar RTSS y aplicar</button></div></article>
+      <div class="section-intro"><p class="eyebrow">PERSONALIZACIÓN</p><h2>Diseño OSD</h2><p class="muted">Selecciona las métricas que se publican dentro del juego.</p></div>
+      <article class="card design-card"><p class="muted">Elige un diseño para el OSD. MangoHud Clean es nuestro layout propio y usa las fuentes de hardware que RTSS ya tiene configuradas.</p><div class="preset-grid"><button class="primary preset" data-layout="mangohud_clean.ovl">MangoHud Clean</button><button class="secondary preset" data-layout="mini.ovl">Mini</button><button class="secondary preset" data-layout="horizontal.ovl">Horizontal</button><button class="secondary preset" data-layout="benchmark.ovl">Benchmark</button><button class="secondary preset" data-layout="presentmon_foreground.ovl">PresentMon</button></div><div class="actions"><button id="open-rtss" class="primary">Abrir configuración de RTSS</button></div><p class="muted profile-note">Después de elegir un diseño, recarga el plugin OverlayEditor o reinicia RTSS para verlo en el juego.</p></article>
+    </section>
+    <div id="toast" class="toast"></div>
+  </main>
+  <script src="app.js"></script>
+  <script src="i18n.js"></script>
+</body>
+</html>

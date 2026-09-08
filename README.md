@@ -1,85 +1,59 @@
 # ManWin Performance Overlay
 
-ManWin es una aplicacion para Windows inspirada en MangoHud. Usa RTSS y
-OverlayEditor para mostrar un overlay de rendimiento configurable dentro de
-juegos y aplicaciones compatibles.
+ManWin es un overlay de rendimiento para Windows, inspirado en MangoHud y diseñado para mostrar información útil mientras juegas sin salir de la partida.
 
-## Funciones
+## Características
 
-- Overlay horizontal de una sola linea, estilo MangoHud.
-- FPS, frametime, uso y temperatura de CPU/GPU.
-- Uso de RAM y VRAM.
-- Frecuencias, consumo, porcentajes de memoria y grafica de frametime.
-- Separadores visuales y reacomodo automatico cuando una metrica se desactiva.
-- Perfiles por ejecutable detectado por RTSS.
-- Interfaz disponible en espanol e ingles.
-- Aplicacion con privilegios de administrador para facilitar la integracion con RTSS.
+- Overlay transparente, click-through y siempre visible sobre el juego.
+- Selección manual del juego o aplicación que se desea medir.
+- CPU: carga y temperatura.
+- GPU: carga y temperatura.
+- RAM física utilizada y total del sistema.
+- FPS y frametime mediante eventos ETW de Windows.
+- Orientación horizontal o vertical.
+- Interfaz de configuración con Material Design 3 y soporte español/inglés.
+- Lectura de sensores mediante LibreHardwareMonitor.
+- Instalación opcional de PawnIO para sensores que requieren acceso de bajo nivel.
+
+## Capturas
+
+### Overlay horizontal
+
+![ManWin overlay horizontal](docs/screenshots/overlay-horizontal.png)
+
+### Overlay vertical
+
+![ManWin overlay vertical](docs/screenshots/overlay-vertical.png)
 
 ## Requisitos
 
-- Windows 10 u 11 de 64 bits.
-- [RivaTuner Statistics Server (RTSS)](https://www.guru3d.com/download/rtss-rivatuner-statistics-server-download/).
-- RTSS con el plugin `OverlayEditor.dll` activo.
-- .NET 9 Desktop Runtime x86 para ejecutar el build incluido.
-- Microsoft Edge WebView2 Runtime.
-- Al menos un proveedor de sensores configurado en RTSS, por ejemplo Internal HAL
-  o LibreHardwareMonitor.
-
-## Configuracion de RTSS
-
-1. Abre RTSS.
-2. Confirma que **On-Screen Display support** este activado.
-3. Abre **Setup > Plugins**.
-4. Activa `OverlayEditor.dll`.
-5. Deja RTSS ejecutandose antes de abrir ManWin y el juego.
-
-## Ejecutar la aplicacion
-
-Conserva toda la carpeta `release` y ejecuta `release/ManWin.exe` como
-administrador. No muevas el ejecutable fuera de esa carpeta: necesita `Web/`,
-`Overlays/`, `runtimes/` y las dependencias de WebView2 que estan junto a el.
-
-La aplicacion se conecta a RTSS mediante `RTSSSharedMemoryV2`, copia el layout
-de ManWin a la carpeta de OverlayEditor y aplica los cambios cuando se cambia
-una metrica.
+- Windows 10 o posterior.
+- Ejecutar `ManWin.exe` como administrador.
+- Abrir los juegos en modo ventana o borderless para obtener la mejor compatibilidad visual.
 
 ## Uso
 
-1. Inicia RTSS y verifica el plugin OverlayEditor.
-2. Abre ManWin.
-3. En **Diseño OSD**, activa o desactiva las metricas deseadas.
-4. Abre el juego. Si ya estaba abierto, reinicialo para que RTSS recargue el layout.
-5. Usa **Perfiles** para guardar preferencias por ejecutable.
-6. Cambia el idioma desde el selector de la barra lateral.
+1. Descarga el paquete de la sección **Releases**.
+2. Extrae todos los archivos en una carpeta.
+3. Ejecuta `ManWin.exe` como administrador.
+4. Selecciona el juego objetivo desde el Dashboard y pulsa el botón de enlace.
+5. Abre **OSD Design** para activar métricas y elegir orientación.
 
-## Contenido del build
+PawnIO es opcional. Si la temperatura del CPU no aparece, ManWin puede ofrecer instalarlo mostrando antes una advertencia sobre sus permisos y compatibilidad con anti-cheat.
 
-```text
-release/
-  ManWin.exe                  Aplicacion
-  Web/                        Interfaz e idiomas
-  Overlays/                   Layout de OverlayEditor
-  runtimes/                   Loader nativo de WebView2
-```
+## Tecnologías utilizadas
 
-## Compilar desde el codigo fuente
+- **C# y .NET 9 WPF** para la aplicación de Windows.
+- **ETW / Microsoft-Windows-DxgKrnl** para contar eventos de presentación y calcular FPS/frametime.
+- **LibreHardwareMonitor** para las métricas de CPU, GPU y memoria.
+- **PawnIO** como opción para sensores de bajo nivel.
+- **WebView2** para la interfaz de configuración.
+- **Beer CSS / Material Design** como base visual de la interfaz.
 
-```powershell
-dotnet build src/MangoHudWindows/MangoHudWindows.csproj
-```
+## Distribución
 
-El codigo fuente no se incluye en esta rama de distribucion. El proyecto genera
-una aplicacion x86 para mantener compatibilidad con la interfaz de memoria
-compartida de RTSS.
+Este repositorio publica únicamente el paquete compilado para usuarios finales dentro de `release/` y el archivo ZIP adjunto a cada release. El código fuente no forma parte de la distribución pública.
 
-## Limitaciones actuales
+## Licencias
 
-- Los valores de hardware dependen de los proveedores configurados en RTSS.
-- La escritura de limites FPS por perfil aun esta preparada para una siguiente
-  etapa de integracion.
-- OverlayEditor debe permanecer activo en RTSS para mostrar el layout.
-
-## Licencia
-
-Proyecto en desarrollo. Agrega aqui la licencia que quieras utilizar antes de
-publicar una version distribuible.
+ManWin utiliza componentes de terceros, incluyendo LibreHardwareMonitor, Microsoft WebView2 y Beer CSS. Consulta sus licencias y avisos correspondientes antes de redistribuir el paquete.

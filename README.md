@@ -1,59 +1,63 @@
 # ManWin Performance Overlay
 
-ManWin es un overlay de rendimiento para Windows, inspirado en MangoHud y diseñado para mostrar información útil mientras juegas sin salir de la partida.
+ManWin is a Windows performance overlay inspired by MangoHud. It displays useful hardware and frame performance information while you play, without requiring you to leave the game.
 
-## Características
+## Features
 
-- Overlay transparente, click-through y siempre visible sobre el juego.
-- Selección manual del juego o aplicación que se desea medir.
-- CPU: carga y temperatura.
-- GPU: carga y temperatura.
-- RAM física utilizada y total del sistema.
-- FPS y frametime mediante eventos ETW de Windows.
-- Orientación horizontal o vertical.
-- Interfaz de configuración con Material Design 3 y soporte español/inglés.
-- Lectura de sensores mediante LibreHardwareMonitor.
-- Instalación opcional de PawnIO para sensores que requieren acceso de bajo nivel.
+- Transparent, click-through overlay that stays above the game.
+- Manual game or application selection.
+- CPU usage and temperature.
+- GPU usage and temperature.
+- Physical system RAM usage and total memory.
+- FPS and frametime measured through Windows ETW presentation events.
+- Horizontal or vertical overlay layout.
+- Material Design 3-inspired configuration interface with Spanish and English support.
+- Hardware monitoring through LibreHardwareMonitor.
+- Optional PawnIO installation for sensors that require low-level access.
 
-## Capturas
+## Screenshots
 
-### Overlay horizontal
+### Horizontal overlay
 
-![ManWin overlay horizontal](docs/screenshots/overlay-horizontal.png)
+![ManWin horizontal overlay](docs/screenshots/overlay-horizontal.png)
 
-### Overlay vertical
+### Vertical overlay
 
-![ManWin overlay vertical](docs/screenshots/overlay-vertical.png)
+![ManWin vertical overlay](docs/screenshots/overlay-vertical.png)
 
-## Requisitos
+## Requirements
 
-- Windows 10 o posterior.
-- Ejecutar `ManWin.exe` como administrador.
-- Abrir los juegos en modo ventana o borderless para obtener la mejor compatibilidad visual.
+- Windows 10 or later.
+- Run `ManWin.exe` as administrator.
+- Windowed or borderless games are recommended for the best overlay compatibility.
 
-## Uso
+## Usage
 
-1. Descarga el paquete de la sección **Releases**.
-2. Extrae todos los archivos en una carpeta.
-3. Ejecuta `ManWin.exe` como administrador.
-4. Selecciona el juego objetivo desde el Dashboard y pulsa el botón de enlace.
-5. Abre **OSD Design** para activar métricas y elegir orientación.
+1. Download the package from the **Releases** page.
+2. Extract all files to a folder.
+3. Run `ManWin.exe` as administrator.
+4. Select the target game from the Dashboard and press the link button.
+5. Open **OSD Design** to enable metrics and choose the overlay layout.
 
-PawnIO es opcional. Si la temperatura del CPU no aparece, ManWin puede ofrecer instalarlo mostrando antes una advertencia sobre sus permisos y compatibilidad con anti-cheat.
+PawnIO is optional. If the CPU temperature is unavailable, ManWin can offer to install it after showing a warning about its permissions and possible anti-cheat compatibility issues.
 
-## Tecnologías utilizadas
+## Technologies
 
-- **C# y .NET 9 WPF** para la aplicación de Windows.
-- **ETW / Microsoft-Windows-DxgKrnl** para contar eventos de presentación y calcular FPS/frametime.
-- **LibreHardwareMonitor** para las métricas de CPU, GPU y memoria.
-- **PawnIO** como opción para sensores de bajo nivel.
-- **WebView2** para la interfaz de configuración.
-- **Beer CSS / Material Design** como base visual de la interfaz.
+- **C# and .NET 9 WPF** for the Windows application.
+- **ETW / Microsoft-Windows-DxgKrnl** for presentation events and FPS/frametime calculation.
+- **LibreHardwareMonitor** for CPU, GPU and memory metrics.
+- **PawnIO** as an optional low-level sensor provider.
+- **WebView2** for the configuration interface.
+- **Beer CSS / Material Design** as the visual foundation of the interface.
 
-## Distribución
+## Distribution
 
-Este repositorio publica únicamente el paquete compilado para usuarios finales dentro de `release/` y el archivo ZIP adjunto a cada release. El código fuente no forma parte de la distribución pública.
+This repository publishes the compiled end-user package in `release/` and as a ZIP attachment on each GitHub release. The public distribution does not include the C# source code.
 
-## Licencias
+## Support the project
 
-ManWin utiliza componentes de terceros, incluyendo LibreHardwareMonitor, Microsoft WebView2 y Beer CSS. Consulta sus licencias y avisos correspondientes antes de redistribuir el paquete.
+If ManWin is useful to you, you can support its development on [Buy Me a Coffee](https://buymeacoffee.com/strelok_dev_8612).
+
+## Licenses
+
+ManWin uses third-party components, including LibreHardwareMonitor, Microsoft WebView2 and Beer CSS. Please review their respective licenses and notices before redistributing the package.

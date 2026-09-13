@@ -80,6 +80,9 @@
       'cta.description': 'ManWin te ayuda a escucharlo de un vistazo.',
       'cta.button': 'Consigue ManWin',
       'cta.note': 'Proyecto gratuito y de código abierto',
+      'coffee.text': '¿Te sirve ManWin? Puedes apoyar su desarrollo.',
+      'coffee.link': 'Invítame un café en Buy Me a Coffee',
+      'coffee.badgeAlt': 'Buy Me a Coffee',
       'footer.tagline': 'Monitorización sencilla, en segundo plano.',
       'footer.github': 'Ver el proyecto en GitHub'
     },
@@ -163,6 +166,9 @@
       'cta.description': 'ManWin helps you see it all at a glance.',
       'cta.button': 'Get ManWin',
       'cta.note': 'Free and open-source project',
+      'coffee.text': 'Finding ManWin useful? You can support its development.',
+      'coffee.link': 'Buy me a coffee on Buy Me a Coffee',
+      'coffee.badgeAlt': 'Buy Me a Coffee',
       'footer.tagline': 'Simple monitoring, running in the background.',
       'footer.github': 'View the project on GitHub'
     }

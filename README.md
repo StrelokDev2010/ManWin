@@ -1,5 +1,7 @@
 # ManWin
 
+<a href="https://buymeacoffee.com/strelok_dev_8612"><img src="bmc.png" alt="Buy me a coffee" width="220"></a>
+
 ManWin is a lightweight Windows hardware-monitoring app with a configurable on-screen display (OSD). Choose the metrics you want to see, then keep the OSD running while the Metrics window is minimized to the notification area.
 
 ## Screenshots
@@ -101,10 +103,6 @@ This larger ZIP includes the .NET runtime. WebView2 Evergreen Runtime is still r
 - `ManWin/Sensors/` — sensor-reading contract and OpenHardwareMonitorLib provider.
 - `ManWin/wwwroot/` — HTML, CSS, and JavaScript for the Metrics page.
 - `docs/screenshots/` — screenshots shown above.
-
-## Support
-
-[![Buy me a coffee](bmc.png)](https://buymeacoffee.com/strelok_dev_8612)
 
 ## Dependencies and notices
 

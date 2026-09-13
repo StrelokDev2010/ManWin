@@ -127,6 +127,10 @@ h1 span, .section-heading h2 span { color: var(--blue); }
 .final-cta h2 { margin: 12px 0 7px; font-size: clamp(33px, 4vw, 45px); }
 .final-cta p { margin-bottom: 23px; color: var(--muted); }
 .final-cta small { margin-top: 13px; color: #8994a2; font-size: 11px; }
+.coffee-support { display: flex; flex-direction: column; align-items: center; gap: 11px; margin-top: 30px; padding-top: 23px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.coffee-link { display: inline-block; border-radius: 12px; transition: transform .2s, box-shadow .2s; }
+.coffee-link img { display: block; width: min(220px, 60vw); height: auto; border-radius: 12px; }
+.coffee-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px #d6a90040; }
 .footer { display: flex; align-items: center; justify-content: space-between; min-height: 82px; border-top: 1px solid var(--line); color: #788599; font-size: 11px; }
 .footer .brand { color: var(--ink); font-size: 17px; }
 .footer .brand-mark { width: 29px; height: 29px; }

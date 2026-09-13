@@ -1,7 +1,5 @@
 # ManWin
 
-Windows app prototype for choosing hardware statistics in a WebView2 interface. The UI is currently English-only and uses a Material 3-inspired dark theme.
-
 ## Requisitos
 
 - Windows 10/11 x64

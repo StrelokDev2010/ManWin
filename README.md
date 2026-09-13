@@ -26,7 +26,11 @@ Available readings depend on the hardware and sensors exposed by OpenHardwareMon
 
 - Windows 10 or Windows 11, x64.
 - Microsoft Edge WebView2 Evergreen Runtime. It is commonly installed on Windows 11. If it is missing, install it from the [official WebView2 page](https://developer.microsoft.com/microsoft-edge/webview2/).
-- .NET 9 SDK to build and run from source. The portable publish includes the .NET runtime, so end users do not need to install .NET separately.
+- .NET 9 SDK to build and run from source.
+
+### Requirements for the small release download
+
+The small release ZIP does not bundle .NET. Before running ManWin, install the **.NET 9 Desktop Runtime for Windows x64** from the [.NET 9 download page](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) (under **Run apps → .NET Desktop Runtime**). The WebView2 Evergreen Runtime is also required.
 
 ## Build and run from source
 
@@ -52,22 +56,36 @@ dotnet run --project ./ManWin/ManWin.csproj
 
 You can also open `ManWin.sln` in Visual Studio 2022 with the **.NET desktop development** workload and run the `ManWin` project.
 
-## Create a portable Windows x64 build
+## Create Windows x64 release builds
+
+### Small download (requires .NET Desktop Runtime)
 
 From PowerShell, run:
 
 ```powershell
-dotnet publish .\ManWin\ManWin.csproj -c Release -r win-x64 --self-contained true -o .\artifacts\ManWin-portable
-Compress-Archive -Path .\artifacts\ManWin-portable\* -DestinationPath .\artifacts\ManWin-win-x64.zip -Force
+dotnet publish .\ManWin\ManWin.csproj -c Release -r win-x64 --no-self-contained -o .\artifacts\ManWin-small
+Compress-Archive -Path .\artifacts\ManWin-small\* -DestinationPath .\artifacts\ManWin-win-x64-small.zip -Force
 ```
 
-From Git Bash, use forward slashes for the publish command:
+From Git Bash, use forward slashes for paths:
 
 ```bash
-dotnet publish ./ManWin/ManWin.csproj -c Release -r win-x64 --self-contained true -o ./artifacts/ManWin-portable
+dotnet publish ./ManWin/ManWin.csproj -c Release -r win-x64 --no-self-contained -o ./artifacts/ManWin-small
+powershell.exe -NoProfile -Command "Compress-Archive -Path './artifacts/ManWin-small/*' -DestinationPath './artifacts/ManWin-win-x64-small.zip' -Force"
 ```
 
-The portable output is a folder containing the executable, .NET runtime, dependencies, icon, and web assets. Distribute the whole folder, or create a ZIP from its contents. WebView2 Evergreen Runtime must still be installed on the target computer. The app stores preferences in `%LOCALAPPDATA%\ManWin\settings.json`.
+The small ZIP contains ManWin and its app dependencies, but not .NET. Users must install the .NET Desktop Runtime 9 x64 and WebView2 Evergreen Runtime before launching it.
+
+### Self-contained portable build (does not require installing .NET)
+
+To include .NET in the download, publish with `--self-contained true` instead:
+
+```powershell
+dotnet publish .\ManWin\ManWin.csproj -c Release -r win-x64 --self-contained true -o .\artifacts\ManWin-portable
+Compress-Archive -Path .\artifacts\ManWin-portable\* -DestinationPath .\artifacts\ManWin-win-x64-portable.zip -Force
+```
+
+This larger ZIP includes the .NET runtime. WebView2 Evergreen Runtime is still required. The app stores preferences in `%LOCALAPPDATA%\ManWin\settings.json`.
 
 ## Usage
 

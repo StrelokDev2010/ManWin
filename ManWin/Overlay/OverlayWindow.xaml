@@ -1,0 +1,12 @@
+<Window x:Class="ManWin.Overlay.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ManWin OSD" Width="270" SizeToContent="Height"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        Background="Transparent" ShowInTaskbar="False" ShowActivated="False"
+        Topmost="True">
+    <Border Margin="8" Padding="14,11" CornerRadius="13"
+            Background="#E810121A" BorderBrush="#554B5263" BorderThickness="1">
+        <StackPanel x:Name="Rows" MinWidth="220" />
+    </Border>
+</Window>

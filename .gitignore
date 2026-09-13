@@ -1,0 +1,17 @@
+# .NET build output
+**/bin/
+**/obj/
+.vs/
+
+# Published releases and generated artifacts
+artifacts/
+
+# Per-user IDE files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS metadata
+.DS_Store
+Thumbs.db

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>ManWin · Metrics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="titlebar" id="titlebar">
+      <div class="brand">MANWIN</div>
+      <h1 class="page-title">Metrics</h1>
+      <div class="window-actions">
+        <button class="save-button" id="save-button">Save</button>
+        <button class="minimize-button" id="minimize-button" aria-label="Minimize to notification area" title="Minimize to notification area">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+        </button>
+        <button class="close-button" id="close-button" aria-label="Close window" title="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="content-scroll">
+      <section class="metric-group" aria-labelledby="gpu-title">
+        <h1 id="gpu-title">GPU</h1>
+        <div class="metric-grid">
+          <label class="metric-option"><input type="checkbox" data-metric="gpu-load"><span class="switch"></span><span>GPU Load</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="vram"><span class="switch"></span><span>VRAM</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="gpu-core-freq"><span class="switch"></span><span>Core Freq</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="gpu-mem-freq"><span class="switch"></span><span>Mem Freq</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="gpu-temp"><span class="switch"></span><span>GPU Temp</span></label>
+          <label class="metric-option" title="Available only when exposed by the GPU and driver"><input type="checkbox" data-metric="memory-temp"><span class="switch"></span><span>Memory Temp</span></label>
+          <label class="metric-option" title="Available only when exposed by the GPU and driver"><input type="checkbox" data-metric="junction"><span class="switch"></span><span>Junction</span></label>
+          <label class="metric-option" title="Available only when exposed by the GPU and driver"><input type="checkbox" data-metric="gpu-fan"><span class="switch"></span><span>Fan</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="gpu-model"><span class="switch"></span><span>Model</span></label>
+          <label class="metric-option" title="Available only when exposed by the GPU and driver"><input type="checkbox" data-metric="gpu-power"><span class="switch"></span><span>Power</span></label>
+        </div>
+      </section>
+
+      <section class="metric-group" aria-labelledby="cpu-title">
+        <h2 id="cpu-title">CPU</h2>
+        <div class="metric-grid">
+          <label class="metric-option"><input type="checkbox" data-metric="cpu-load"><span class="switch"></span><span>CPU Load</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="cpu-core-load"><span class="switch"></span><span>CPU Core Load</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="cpu-freq"><span class="switch"></span><span>CPU Freq</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="cpu-temp"><span class="switch"></span><span>CPU Temp</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="cpu-power"><span class="switch"></span><span>CPU Power</span></label>
+        </div>
+      </section>
+
+      <section class="metric-group" aria-labelledby="other-title">
+        <h2 id="other-title">Other</h2>
+        <div class="metric-grid">
+          <label class="metric-option"><input type="checkbox" data-metric="ram"><span class="switch"></span><span>RAM Usage</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="ram-used"><span class="switch"></span><span>RAM Used (GB)</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="ram-total"><span class="switch"></span><span>RAM Total (GB)</span></label>
+        </div>
+      </section>
+    </div>
+    <div class="save-status" id="save-status" role="status" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

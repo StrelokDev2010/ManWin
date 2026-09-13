@@ -1,0 +1,99 @@
+:root {
+  color-scheme: dark;
+  font-family: "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  /* Material 3 dark color roles, tuned for the charcoal reference layout. */
+  --md-sys-color-surface: #131318;
+  --md-sys-color-surface-container-low: #1b1b20;
+  --md-sys-color-surface-container: #1f1f25;
+  --md-sys-color-surface-container-high: #2a2a31;
+  --md-sys-color-surface-container-highest: #35353c;
+  --md-sys-color-on-surface: #e4e1e9;
+  --md-sys-color-on-surface-variant: #c4c6d0;
+  --md-sys-color-outline: #8e909a;
+  --md-sys-color-outline-variant: #44464f;
+  --md-sys-color-primary: #b4c5ff;
+  --md-sys-color-on-primary: #1e2f5c;
+  --md-sys-color-primary-container: #354878;
+  --md-sys-color-on-primary-container: #dbe1ff;
+  --md-sys-color-tertiary: #dfb8f5;
+  --md-sys-color-on-tertiary-container: #2a123a;
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+body { color: var(--md-sys-color-on-surface); background: var(--md-sys-color-surface); }
+.app-shell {
+  height: 100%; min-height: 420px; display: flex; flex-direction: column;
+  border: 1px solid var(--md-sys-color-outline-variant); border-radius: 12px;
+  overflow: hidden; background: var(--md-sys-color-surface);
+}
+
+.titlebar {
+  height: 56px; min-height: 56px; display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; padding: 0 12px; background: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant); user-select: none;
+}
+.brand { color: var(--md-sys-color-on-surface-variant); font-size: 11px; font-weight: 700; letter-spacing: .16em; padding-left: 8px; }
+.page-title { margin: 0; color: var(--md-sys-color-on-surface); font-size: 16px; font-weight: 600; letter-spacing: .01em; }
+.window-actions { justify-self: end; display: flex; align-items: center; gap: 12px; }
+.save-button {
+  height: 40px; min-width: 72px; padding: 0 22px; border: 0; border-radius: 20px;
+  background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
+  font: inherit; font-weight: 600; cursor: pointer;
+  transition: box-shadow .18s ease, filter .18s ease, transform .08s ease;
+}
+.save-button:hover { box-shadow: 0 2px 6px #0008; filter: brightness(1.06); }
+.save-button:active { transform: scale(.98); }
+.minimize-button, .close-button {
+  width: 36px; height: 36px; display: grid; place-items: center; border: 0;
+  border-radius: 50%; background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant); cursor: pointer;
+  transition: background .16s ease, color .16s ease;
+}
+.minimize-button:hover { background: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface); }
+.close-button:hover { background: #633b42; color: #ffdadd; }
+.minimize-button svg, .close-button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+
+.content-scroll { flex: 1; overflow: auto; padding: 0 16px 28px; scrollbar-color: var(--md-sys-color-outline) var(--md-sys-color-surface-container); scrollbar-width: thin; }
+.metric-group { padding-top: 14px; margin-bottom: 22px; }
+.metric-group h1, .metric-group h2 {
+  margin: 0 0 14px; text-align: center; color: var(--md-sys-color-on-surface-variant);
+  font-size: 14px; font-weight: 600; line-height: 22px; letter-spacing: .01em;
+}
+.metric-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 10px; row-gap: 4px; }
+.metric-option {
+  min-width: 0; height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 4px;
+  border-radius: 12px; color: var(--md-sys-color-on-surface); white-space: nowrap;
+  cursor: pointer; user-select: none; transition: background .16s ease;
+}
+.metric-option:hover { background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 72%, transparent); }
+.metric-option > input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.switch {
+  position: relative; flex: 0 0 52px; height: 32px; border: 2px solid var(--md-sys-color-outline);
+  border-radius: 999px; background: var(--md-sys-color-surface-container-highest);
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.switch::before {
+  content: ""; position: absolute; left: 5px; top: 5px; width: 18px; height: 18px;
+  border-radius: 50%; background: var(--md-sys-color-outline); transition: transform .18s ease, width .18s ease, height .18s ease, background .18s ease;
+}
+.metric-option input:checked + .switch { border-color: var(--md-sys-color-primary); background: var(--md-sys-color-primary); }
+.metric-option input:checked + .switch::before { left: 4px; top: 4px; width: 20px; height: 20px; transform: translateX(20px); background: var(--md-sys-color-on-primary); }
+.metric-option input:focus-visible + .switch { outline: 2px solid var(--md-sys-color-primary); outline-offset: 3px; }
+.metric-option > span:last-child { overflow: hidden; text-overflow: ellipsis; }
+.save-status {
+  position: absolute; left: 50%; bottom: 12px; transform: translate(-50%, 8px); padding: 10px 16px;
+  border-radius: 12px; background: var(--md-sys-color-tertiary); color: var(--md-sys-color-on-tertiary-container);
+  opacity: 0; pointer-events: none; transition: opacity .16s ease, transform .16s ease; font-size: 12px; font-weight: 600;
+  box-shadow: 0 3px 10px #0005;
+}
+.save-status.visible { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 900px) { .metric-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .brand { display: none; } }
+@media (max-width: 520px) { .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .metric-option { gap: 8px; font-size: 13px; } .titlebar { padding: 0 7px; } .window-actions { gap: 7px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }

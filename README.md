@@ -1,14 +1,38 @@
 # ManWin
 
-## Requisitos
+ManWin is a lightweight Windows hardware-monitoring app with a configurable on-screen display (OSD). Choose the metrics you want to see, then keep the OSD running while the Metrics window is minimized to the notification area.
 
-- Windows 10/11 x64
-- .NET 9 SDK
-- Runtime Evergreen de Microsoft Edge WebView2. Suele estar instalado en Windows 11; si falta en Windows 10, instálalo desde la [página oficial de WebView2](https://developer.microsoft.com/microsoft-edge/webview2/).
+## Screenshots
 
-## Restaurar, compilar y ejecutar
+The screenshots show ManWin's OSD over a game. The FPS counter visible in the game screenshots belongs to the game's own overlay; ManWin does not currently provide an FPS metric.
 
-Desde **PowerShell**:
+![ManWin OSD over a game](docs/screenshots/manwin-overlay-in-game.png)
+
+![Close-up of the ManWin OSD](docs/screenshots/manwin-overlay-close-up.png)
+
+![ManWin OSD in another game scene](docs/screenshots/manwin-overlay-in-game-2.png)
+
+## Features
+
+- Select available CPU, GPU, and memory metrics.
+- Show selected readings in a transparent, click-through OSD.
+- Minimize the Metrics window to the Windows notification area while the OSD and sensor polling continue.
+- Restore Metrics by double-clicking the notification-area icon or choosing **Open Metrics**.
+- Save metric selections between runs.
+
+Available readings depend on the hardware and sensors exposed by OpenHardwareMonitorLib. ManWin polls sensors once per second. The current implementation does not include FPS measurement.
+
+## Requirements
+
+- Windows 10 or Windows 11, x64.
+- Microsoft Edge WebView2 Evergreen Runtime. It is commonly installed on Windows 11. If it is missing, install it from the [official WebView2 page](https://developer.microsoft.com/microsoft-edge/webview2/).
+- .NET 9 SDK to build and run from source. The portable publish includes the .NET runtime, so end users do not need to install .NET separately.
+
+## Build and run from source
+
+Run these commands from the repository root.
+
+### PowerShell
 
 ```powershell
 dotnet restore .\ManWin\ManWin.csproj
@@ -16,7 +40,9 @@ dotnet build .\ManWin.sln
 dotnet run --project .\ManWin\ManWin.csproj
 ```
 
-Desde **Git Bash** (usa `/` como separador de carpetas):
+### Git Bash
+
+Use forward slashes in paths:
 
 ```bash
 dotnet restore ./ManWin/ManWin.csproj
@@ -24,40 +50,40 @@ dotnet build ./ManWin.sln
 dotnet run --project ./ManWin/ManWin.csproj
 ```
 
-Para compilar una versión optimizada de Release:
+You can also open `ManWin.sln` in Visual Studio 2022 with the **.NET desktop development** workload and run the `ManWin` project.
 
-```powershell
-dotnet build .\ManWin.sln -c Release
-```
+## Create a portable Windows x64 build
 
-Para generar un Release portable en carpeta para Windows x64, que incluye .NET:
+From PowerShell, run:
 
 ```powershell
 dotnet publish .\ManWin\ManWin.csproj -c Release -r win-x64 --self-contained true -o .\artifacts\ManWin-portable
+Compress-Archive -Path .\artifacts\ManWin-portable\* -DestinationPath .\artifacts\ManWin-win-x64.zip -Force
 ```
 
-Distribuye toda la carpeta `artifacts\ManWin-portable`; el usuario no necesita instalar .NET, pero sí debe tener instalado el runtime Evergreen de WebView2. La carpeta incluye el ejecutable, dependencias, icono y recursos HTML/CSS/JavaScript. Las preferencias se guardan en `%LOCALAPPDATA%\ManWin\settings.json`.
+From Git Bash, use forward slashes for the publish command:
 
-También puedes abrir `ManWin.sln` en Visual Studio 2022 con el workload **Desarrollo de escritorio de .NET** y ejecutar el proyecto `ManWin`.
+```bash
+dotnet publish ./ManWin/ManWin.csproj -c Release -r win-x64 --self-contained true -o ./artifacts/ManWin-portable
+```
 
-## Prototype usage
+The portable output is a folder containing the executable, .NET runtime, dependencies, icon, and web assets. Distribute the whole folder, or create a ZIP from its contents. WebView2 Evergreen Runtime must still be installed on the target computer. The app stores preferences in `%LOCALAPPDATA%\ManWin\settings.json`.
 
-1. Toggle the metrics you want to include.
-2. Select **Save** to persist the selection under `%LOCALAPPDATA%\ManWin\settings.json`.
-3. Use the minimize or **X** button to hide Metrics in the Windows notification area; the OSD and sensor polling keep running. Double-click the tray icon or choose **Open Metrics** to restore the window. Choose **Exit ManWin** from the tray menu to stop the OSD and close the app. Drag the top bar to move the window.
+## Usage
 
-The current screen is a metrics-selection settings page, styled after the supplied reference. Its options reflect readings or metadata exposed by OpenHardwareMonitorLib: CPU/GPU load, clocks, temperatures, power, GPU memory, fans, RAM usage, physical RAM used and total. GPU-specific readings are hardware-dependent. The app initializes OpenHardwareMonitorLib, polls available sensors once per second, and shows selected values in a transparent, click-through OSD.
+1. Toggle the metrics you want to display.
+2. Select **Save** to store your selections.
+3. Minimize the Metrics window or click **X** to hide it in the notification area. The OSD and sensor polling continue running.
+4. Double-click the ManWin notification-area icon or select **Open Metrics** to restore the window. Select **Exit ManWin** from the tray menu to close the app and stop the OSD.
+5. Drag the top bar to move the Metrics window.
 
-Display-only controls (load color, core bars/graphs), throttling state, Vulkan driver details, per-process stats and disk I/O throughput were removed from this sensor selection because this library package does not provide them as corresponding readings. They could be added later using app-side presentation logic or separate Windows APIs.
+## Project structure
 
-## Estructura
+- `ManWin/` — WPF app and WebView2 host.
+- `ManWin/Sensors/` — sensor-reading contract and OpenHardwareMonitorLib provider.
+- `ManWin/wwwroot/` — HTML, CSS, and JavaScript for the Metrics page.
+- `docs/screenshots/` — screenshots shown above.
 
-- `ManWin/`: aplicación WPF y host de WebView2.
-- `ManWin/Sensors/`: contrato de lectura y proveedor de OpenHardwareMonitorLib.
-- `ManWin/wwwroot/`: pantalla HTML/CSS/JavaScript; recibe las lecturas por mensajería WebView2.
+## Dependencies and notices
 
-The app currently has one Metrics page, with options grouped under GPU, CPU and Other. Sensor readings are passed to the WebView2 page and the OSD. Physical memory capacity values are exposed in GB by OpenHardwareMonitorLib.
-
-## Dependencias y distribución
-
-WebView2 and OpenHardwareMonitorLib are referenced through NuGet. The pinned package is `OpenHardwareMonitorLib` 1.0.9513 (MPL-2.0; includes third-party dependencies/notices). NuGet currently lists 1.0.9513, while the GitHub repository has newer 3.0.x releases; this app follows the repository's NuGet integration instructions, so compare the package with upstream before a public release if newer hardware support is needed. Some low-level sensors may require administrator rights, and upstream notes that hardware-monitoring drivers can trigger antivirus detections. The app remains `asInvoker` and does not automatically request elevation.
+The app uses `OpenHardwareMonitorLib` 1.0.9513 and `Microsoft.Web.WebView2`, both referenced through NuGet. OpenHardwareMonitorLib is licensed under MPL-2.0 and includes third-party dependencies; see the package and upstream project for applicable notices. Some low-level readings are hardware-dependent and may require elevated permissions. ManWin does not automatically request administrator privileges.

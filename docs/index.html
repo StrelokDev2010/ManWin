@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="es" class="light">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f7fb">
-  <meta name="description" content="ManWin muestra las métricas de CPU, GPU y memoria en un OSD ligero, transparente y siempre visible para Windows.">
+  <meta name="description" content="ManWin muestra las métricas de CPU, GPU y memoria en un OSD ligero, transparente y siempre visible para Windows." data-i18n-content="meta.description">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="ManWin — tus métricas, siempre a la vista">
-  <meta property="og:description" content="Monitoriza CPU, GPU y memoria con un OSD configurable para Windows.">
+  <meta property="og:title" content="ManWin — tus métricas, siempre a la vista" data-i18n-content="meta.title">
+  <meta property="og:description" content="Monitoriza CPU, GPU y memoria con un OSD configurable para Windows." data-i18n-content="meta.description">
   <meta property="og:image" content="screenshots/manwin-overlay-in-game.png">
-  <title>ManWin — tus métricas, siempre a la vista</title>
-  <link rel="icon" href="../ManWin/mango_ico.ico">
+  <title data-i18n-title="meta.title">ManWin — tus métricas, siempre a la vista</title>
+  <link rel="icon" type="image/png" href="../mango.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -20,70 +20,76 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="ManWin, inicio">
-      <span class="brand-mark">M</span><span>ManWin</span>
+    <a class="brand" href="#inicio" aria-label="ManWin, inicio" data-i18n-aria="brand.home">
+      <span class="brand-mark"><img src="../mango.png" alt="" aria-hidden="true"></span><span>ManWin</span>
     </a>
-    <nav aria-label="Navegación principal">
-      <a href="#funciones">Funciones</a>
-      <a href="#capturas">Capturas</a>
-      <a href="#requisitos">Requisitos</a>
+    <nav aria-label="Navegación principal" data-i18n-aria="nav.label">
+      <a href="#funciones" data-i18n="nav.features">Funciones</a>
+      <a href="#capturas" data-i18n="nav.gallery">Capturas</a>
+      <a href="#requisitos" data-i18n="nav.requirements">Requisitos</a>
     </nav>
-    <a class="button github-link" href="https://github.com/StrelokDev2010/ManWin" target="_blank" rel="noreferrer">
-      <span class="icon">code</span><span>GitHub</span>
-    </a>
+    <div class="header-actions">
+      <div class="language-toggle" role="group" aria-label="Seleccionar idioma" data-i18n-aria="language.label">
+        <button class="language-option" type="button" data-language="en" aria-pressed="true">EN</button>
+        <button class="language-option" type="button" data-language="es" aria-pressed="false">ES</button>
+      </div>
+      <a class="button github-link" href="https://github.com/StrelokDev2010/ManWin" target="_blank" rel="noreferrer">
+        <span class="icon">code</span><span>GitHub</span>
+      </a>
+    </div>
   </header>
 
   <main>
     <section class="hero page-width" id="inicio">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="status-dot"></span> Monitor de hardware para Windows</div>
-        <h1>Tus métricas.<br><span>Siempre a la vista.</span></h1>
-        <p class="hero-lede">CPU, GPU y memoria en un OSD discreto que te acompaña mientras juegas o trabajas. Tú eliges qué mostrar y dónde verlo.</p>
+        <div class="eyebrow"><span class="status-dot"></span><span data-i18n="hero.eyebrow">Monitor de hardware para Windows</span></div>
+        <h1 data-i18n-html="hero.title">Tus métricas.<br><span>Siempre a la vista.</span></h1>
+        <p class="hero-lede" data-i18n="hero.description">CPU, GPU y memoria en un OSD discreto que te acompaña mientras juegas o trabajas. Tú eliges qué mostrar y dónde verlo.</p>
         <div class="hero-actions">
           <a class="button primary-button" href="https://github.com/StrelokDev2010/ManWin/releases/latest">
-            Descargar para Windows <span class="icon">download</span>
+            <span data-i18n="hero.download">Descargar para Windows</span> <span class="icon">download</span>
           </a>
-          <a class="text-button" href="#capturas">Ver capturas <span class="icon">arrow_downward</span></a>
+          <a class="text-button" href="#capturas"><span data-i18n="hero.seeScreenshots">Ver capturas</span> <span class="icon">arrow_downward</span></a>
         </div>
-        <div class="hero-note"><span class="icon">verified</span> Gratis · Ligero · Configurable</div>
+        <div class="hero-note"><span class="icon">verified</span><span data-i18n="hero.note">Gratis · Ligero · Configurable</span></div>
       </div>
       <div class="hero-visual">
         <div class="visual-glow"></div>
-        <img src="screenshots/manwin-overlay-in-game.png" alt="El OSD transparente de ManWin mostrando las métricas sobre un juego" fetchpriority="high">
-        <div class="floating-card"><span class="live-dot"></span><span>Tu sistema, de un vistazo</span></div>
-        <span class="visual-caption">Overlay real de ManWin</span>
+        <img src="screenshots/manwin-overlay-in-game.png" alt="El OSD transparente de ManWin mostrando las métricas sobre un juego" data-i18n-alt="hero.imageAlt" fetchpriority="high">
+        <div class="floating-card"><span class="live-dot"></span><span data-i18n="hero.floating">Tu sistema, de un vistazo</span></div>
+        <span class="visual-caption" data-i18n="hero.caption">Overlay real de ManWin</span>
       </div>
     </section>
 
-    <section class="metric-strip page-width" aria-label="Métricas disponibles">
-      <div><span class="metric-icon cpu">C</span><span><b>CPU</b><small>Temperatura y uso</small></span></div>
-      <div><span class="metric-icon gpu">G</span><span><b>GPU</b><small>Lecturas del sensor</small></span></div>
-      <div><span class="metric-icon ram">M</span><span><b>Memoria</b><small>Uso y capacidad</small></span></div>
-      <div class="strip-caption">Actualización cada segundo</div>
+    <section class="metric-strip page-width" aria-label="Métricas disponibles" data-i18n-aria="metrics.label">
+      <div><span class="metric-icon cpu">C</span><span><b>CPU</b><small data-i18n="metrics.cpu">Temperatura y uso</small></span></div>
+      <div><span class="metric-icon gpu">G</span><span><b>GPU</b><small data-i18n="metrics.gpu">Lecturas del sensor</small></span></div>
+      <div><span class="metric-icon ram">M</span><span><b data-i18n="metrics.memory">Memoria</b><small data-i18n="metrics.ram">Uso y capacidad</small></span></div>
+      <div class="strip-caption" data-i18n="metrics.refresh">Actualización cada segundo</div>
     </section>
 
     <section class="features section-pad" id="funciones">
       <div class="page-width">
         <div class="section-heading">
-          <span class="section-kicker">Lo esencial, a mano</span>
-          <h2>Información útil.<br><span>Sin estorbar.</span></h2>
-          <p>ManWin mantiene tus lecturas visibles sin robarte el foco ni llenar la pantalla de paneles.</p>
+          <span class="section-kicker" data-i18n="features.kicker">Lo esencial, a mano</span>
+          <h2 data-i18n-html="features.title">Información útil.<br><span>Sin estorbar.</span></h2>
+          <p data-i18n="features.description">ManWin mantiene tus lecturas visibles sin robarte el foco ni llenar la pantalla de paneles.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
             <div class="feature-icon"><span class="icon">visibility</span></div>
-            <h3>Overlay transparente</h3>
-            <p>Consulta tus métricas encima de tus juegos y aplicaciones. La ventana es atravesable al clic para que sigas usando lo que tienes debajo.</p>
+            <h3 data-i18n="features.transparentTitle">Overlay transparente</h3>
+            <p data-i18n="features.transparentText">Consulta tus métricas encima de tus juegos y aplicaciones. La ventana es atravesable al clic para que sigas usando lo que tienes debajo.</p>
           </article>
           <article class="feature-card">
             <div class="feature-icon lavender"><span class="icon">tune</span></div>
-            <h3>A tu manera</h3>
-            <p>Activa las lecturas que te interesan y guarda tu selección. El OSD se adapta a lo que quieres vigilar.</p>
+            <h3 data-i18n="features.customTitle">A tu manera</h3>
+            <p data-i18n="features.customText">Activa las lecturas que te interesan y guarda tu selección. El OSD se adapta a lo que quieres vigilar.</p>
           </article>
           <article class="feature-card">
             <div class="feature-icon mint"><span class="icon">space_dashboard</span></div>
-            <h3>Siempre en segundo plano</h3>
-            <p>Minimiza la ventana al área de notificación. El OSD y la lectura de sensores siguen funcionando hasta que salgas de ManWin.</p>
+            <h3 data-i18n="features.backgroundTitle">Siempre en segundo plano</h3>
+            <p data-i18n="features.backgroundText">Minimiza la ventana al área de notificación. El OSD y la lectura de sensores siguen funcionando hasta que salgas de ManWin.</p>
           </article>
         </div>
       </div>
@@ -92,35 +98,57 @@
     <section class="screenshots section-pad" id="capturas">
       <div class="page-width">
         <div class="section-heading centered">
-          <span class="section-kicker">Así se ve</span>
-          <h2>Claro, incluso en plena partida.</h2>
-          <p>Capturas reales del OSD de ManWin en acción.</p>
+          <span class="section-kicker" data-i18n="gallery.kicker">Así se ve</span>
+          <h2 data-i18n="gallery.title">Claro, incluso en plena partida.</h2>
+          <p data-i18n="gallery.description">ManWin en tus juegos favoritos y en la ventana de métricas.</p>
         </div>
-        <div class="screenshot-grid">
-          <figure class="screenshot-card screenshot-wide">
-            <img src="screenshots/manwin-overlay-in-game-2.png" alt="OSD de ManWin sobre una escena de juego" loading="lazy">
-            <figcaption><span>01</span> Métricas a la vista, sin salir del juego</figcaption>
-          </figure>
-          <figure class="screenshot-card screenshot-detail">
-            <img src="screenshots/manwin-overlay-close-up.png" alt="Detalle del panel con lecturas de CPU, GPU y memoria" loading="lazy">
-            <figcaption><span>02</span> Lecturas fáciles de consultar</figcaption>
-          </figure>
+        <div class="carousel" id="screenshots-carousel" role="region" aria-roledescription="carrusel" aria-label="Capturas de ManWin" data-i18n-aria="gallery.label" data-i18n-roledescription="gallery.role">
+          <div class="carousel-viewport">
+            <figure class="carousel-slide" aria-roledescription="diapositiva" aria-label="1 de 4" data-i18n-aria="gallery.slide1Count" data-i18n-roledescription="gallery.slideRole">
+              <img src="screenshots/oblivion-remastered.png" alt="ManWin mostrando métricas mientras se juega Oblivion Remastered" data-i18n-alt="gallery.slide1Alt" loading="lazy">
+              <figcaption>Oblivion Remastered</figcaption>
+            </figure>
+            <figure class="carousel-slide" aria-roledescription="diapositiva" aria-label="2 de 4" data-i18n-aria="gallery.slide2Count" data-i18n-roledescription="gallery.slideRole" hidden>
+              <img src="screenshots/forza-horizon-5.png" alt="ManWin mostrando métricas durante una carrera en Forza Horizon 5" data-i18n-alt="gallery.slide2Alt" loading="lazy">
+              <figcaption>Forza Horizon 5</figcaption>
+            </figure>
+            <figure class="carousel-slide" aria-roledescription="diapositiva" aria-label="3 de 4" data-i18n-aria="gallery.slide3Count" data-i18n-roledescription="gallery.slideRole" hidden>
+              <img src="screenshots/look-outside.png" alt="ManWin mostrando métricas en Look Outside" data-i18n-alt="gallery.slide3Alt" loading="lazy">
+              <figcaption>Look Outside</figcaption>
+            </figure>
+            <figure class="carousel-slide" aria-roledescription="diapositiva" aria-label="4 de 4" data-i18n-aria="gallery.slide4Count" data-i18n-roledescription="gallery.slideRole" hidden>
+              <img src="screenshots/manwin-metrics-window.png" alt="Ventana de métricas de ManWin con opciones para activar lecturas" data-i18n-alt="gallery.slide4Alt" loading="lazy">
+              <figcaption>La ventana de métricas de ManWin</figcaption>
+            </figure>
+            <button class="carousel-arrow carousel-prev" type="button" aria-label="Captura anterior" data-i18n-aria="gallery.previous"><span class="icon">chevron_left</span></button>
+            <button class="carousel-arrow carousel-next" type="button" aria-label="Captura siguiente" data-i18n-aria="gallery.next"><span class="icon">chevron_right</span></button>
+            <div class="carousel-count" role="status" aria-label="Captura 1 de 4" data-i18n-aria="gallery.currentCount"><span class="carousel-current">01</span><span class="carousel-total">04</span></div>
+          </div>
+          <div class="carousel-footer">
+            <span class="carousel-hint" data-i18n="gallery.hint">Usa las flechas para explorar</span>
+            <div class="carousel-dots" aria-label="Elegir captura" data-i18n-aria="gallery.choose">
+              <button type="button" aria-label="Mostrar Oblivion Remastered" data-i18n-aria="gallery.show1" aria-current="true"></button>
+              <button type="button" aria-label="Mostrar Forza Horizon 5" data-i18n-aria="gallery.show2" aria-current="false"></button>
+              <button type="button" aria-label="Mostrar Look Outside" data-i18n-aria="gallery.show3" aria-current="false"></button>
+              <button type="button" aria-label="Mostrar la ventana de métricas de ManWin" data-i18n-aria="gallery.show4" aria-current="false"></button>
+            </div>
+          </div>
         </div>
-        <p class="capture-note">ManWin no mide FPS actualmente. El contador que aparece en algunas capturas pertenece al overlay del juego.</p>
+        <p class="capture-note" data-i18n="gallery.note">ManWin no mide FPS actualmente. El contador que aparece en algunas capturas pertenece al overlay del juego.</p>
       </div>
     </section>
 
     <section class="how-section section-pad">
       <div class="page-width how-layout">
         <div class="section-heading">
-          <span class="section-kicker">Listo en un momento</span>
-          <h2>De abrirlo a tenerlo<br><span>todo bajo control.</span></h2>
-          <p>Un flujo sencillo para dejar el overlay exactamente como lo quieres.</p>
+          <span class="section-kicker" data-i18n="steps.kicker">Listo en un momento</span>
+          <h2 data-i18n-html="steps.title">De abrirlo a tenerlo<br><span>todo bajo control.</span></h2>
+          <p data-i18n="steps.description">Un flujo sencillo para dejar el overlay exactamente como lo quieres.</p>
         </div>
         <ol class="steps">
-          <li><span class="step-number">01</span><div><b>Elige tus métricas</b><p>Activa los sensores disponibles de CPU, GPU y memoria.</p></div></li>
-          <li><span class="step-number">02</span><div><b>Guarda tu selección</b><p>ManWin recuerda tus preferencias entre sesiones.</p></div></li>
-          <li><span class="step-number">03</span><div><b>Minimiza y continúa</b><p>El OSD queda visible mientras ManWin se oculta en la bandeja.</p></div></li>
+          <li><span class="step-number">01</span><div><b data-i18n="steps.oneTitle">Elige tus métricas</b><p data-i18n="steps.oneText">Activa los sensores disponibles de CPU, GPU y memoria.</p></div></li>
+          <li><span class="step-number">02</span><div><b data-i18n="steps.twoTitle">Guarda tu selección</b><p data-i18n="steps.twoText">ManWin recuerda tus preferencias entre sesiones.</p></div></li>
+          <li><span class="step-number">03</span><div><b data-i18n="steps.threeTitle">Minimiza y continúa</b><p data-i18n="steps.threeText">El OSD queda visible mientras ManWin se oculta en la bandeja.</p></div></li>
         </ol>
       </div>
     </section>
@@ -128,33 +156,35 @@
     <section class="requirements section-pad" id="requisitos">
       <div class="page-width requirements-panel">
         <div>
-          <span class="section-kicker">Antes de empezar</span>
-          <h2>Hecho para Windows.</h2>
-          <p>ManWin funciona en Windows 10 y 11 de 64 bits. Algunas lecturas dependen de los sensores que exponga tu hardware.</p>
+          <span class="section-kicker" data-i18n="requirements.kicker">Antes de empezar</span>
+          <h2 data-i18n="requirements.title">Hecho para Windows.</h2>
+          <p data-i18n="requirements.description">ManWin funciona en Windows 10 y 11 de 64 bits. Algunas lecturas dependen de los sensores que exponga tu hardware.</p>
         </div>
         <div class="requirements-list">
-          <div><span class="icon">desktop_windows</span><span><b>Windows 10 / 11</b><small>64 bits</small></span></div>
-          <div><span class="icon">memory</span><span><b>.NET Desktop Runtime 9</b><small>Necesario para la descarga ligera</small></span></div>
-          <div><span class="icon">web</span><span><b>WebView2 Evergreen</b><small>Incluido habitualmente en Windows 11</small></span></div>
+          <div><span class="icon">desktop_windows</span><span><b>Windows 10 / 11</b><small data-i18n="requirements.bits">64 bits</small></span></div>
+          <div><span class="icon">memory</span><span><b>.NET Desktop Runtime 9</b><small data-i18n="requirements.dotnet">Necesario para la descarga ligera</small></span></div>
+          <div><span class="icon">web</span><span><b>WebView2 Evergreen</b><small data-i18n="requirements.webview">Incluido habitualmente en Windows 11</small></span></div>
         </div>
-        <div class="requirements-footer"><a href="https://dotnet.microsoft.com/en-us/download/dotnet/9.0" target="_blank" rel="noreferrer">Descargar .NET 9 <span class="icon">open_in_new</span></a><a href="https://developer.microsoft.com/microsoft-edge/webview2/" target="_blank" rel="noreferrer">Instalar WebView2 <span class="icon">open_in_new</span></a></div>
+        <div class="requirements-footer"><a href="https://dotnet.microsoft.com/en-us/download/dotnet/9.0" target="_blank" rel="noreferrer"><span data-i18n="requirements.downloadDotnet">Descargar .NET 9</span> <span class="icon">open_in_new</span></a><a href="https://developer.microsoft.com/microsoft-edge/webview2/" target="_blank" rel="noreferrer"><span data-i18n="requirements.installWebview">Instalar WebView2</span> <span class="icon">open_in_new</span></a></div>
       </div>
     </section>
 
     <section class="final-cta page-width">
-      <div class="cta-mark">M</div>
-      <span class="section-kicker">Menos ventanas. Más claridad.</span>
-      <h2>Tu PC tiene mucho que contar.</h2>
-      <p>ManWin te ayuda a escucharlo de un vistazo.</p>
-      <a class="button primary-button" href="https://github.com/StrelokDev2010/ManWin/releases/latest">Consigue ManWin <span class="icon">arrow_forward</span></a>
-      <small>Proyecto gratuito y de código abierto</small>
+      <div class="cta-mark"><img src="../mango.png" alt="" aria-hidden="true"></div>
+      <span class="section-kicker" data-i18n="cta.kicker">Menos ventanas. Más claridad.</span>
+      <h2 data-i18n="cta.title">Tu PC tiene mucho que contar.</h2>
+      <p data-i18n="cta.description">ManWin te ayuda a escucharlo de un vistazo.</p>
+      <a class="button primary-button" href="https://github.com/StrelokDev2010/ManWin/releases/latest"><span data-i18n="cta.button">Consigue ManWin</span> <span class="icon">arrow_forward</span></a>
+      <small data-i18n="cta.note">Proyecto gratuito y de código abierto</small>
     </section>
   </main>
 
   <footer class="footer page-width">
-    <a class="brand" href="#inicio"><span class="brand-mark">M</span><span>ManWin</span></a>
-    <span>Monitorización sencilla, en segundo plano.</span>
-    <a href="https://github.com/StrelokDev2010/ManWin" target="_blank" rel="noreferrer">Ver el proyecto en GitHub <span class="icon">arrow_outward</span></a>
+    <a class="brand" href="#inicio"><span class="brand-mark"><img src="../mango.png" alt="" aria-hidden="true"></span><span>ManWin</span></a>
+    <span data-i18n="footer.tagline">Monitorización sencilla, en segundo plano.</span>
+    <a href="https://github.com/StrelokDev2010/ManWin" target="_blank" rel="noreferrer"><span data-i18n="footer.github">Ver el proyecto en GitHub</span> <span class="icon">arrow_outward</span></a>
   </footer>
+  <script src="i18n.js" defer></script>
+  <script src="gallery.js" defer></script>
 </body>
 </html>

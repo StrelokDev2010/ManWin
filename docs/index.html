@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7fb">
+  <meta name="description" content="ManWin muestra las métricas de CPU, GPU y memoria en un OSD ligero, transparente y siempre visible para Windows.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ManWin — tus métricas, siempre a la vista">
+  <meta property="og:description" content="Monitoriza CPU, GPU y memoria con un OSD configurable para Windows.">
+  <meta property="og:image" content="screenshots/manwin-overlay-in-game.png">
+  <title>ManWin — tus métricas, siempre a la vista</title>
+  <link rel="icon" href="../ManWin/mango_ico.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/beercss@5.0.3/dist/cdn/beer.min.css" rel="stylesheet">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@5.0.3/dist/cdn/beer.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="ManWin, inicio">
+      <span class="brand-mark">M</span><span>ManWin</span>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="#funciones">Funciones</a>
+      <a href="#capturas">Capturas</a>
+      <a href="#requisitos">Requisitos</a>
+    </nav>
+    <a class="button github-link" href="https://github.com/StrelokDev2010/ManWin" target="_blank" rel="noreferrer">
+      <span class="icon">code</span><span>GitHub</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="hero page-width" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> Monitor de hardware para Windows</div>
+        <h1>Tus métricas.<br><span>Siempre a la vista.</span></h1>
+        <p class="hero-lede">CPU, GPU y memoria en un OSD discreto que te acompaña mientras juegas o trabajas. Tú eliges qué mostrar y dónde verlo.</p>
+        <div class="hero-actions">
+          <a class="button primary-button" href="https://github.com/StrelokDev2010/ManWin/releases/latest">
+            Descargar para Windows <span class="icon">download</span>
+          </a>
+          <a class="text-button" href="#capturas">Ver capturas <span class="icon">arrow_downward</span></a>
+        </div>
+        <div class="hero-note"><span class="icon">verified</span> Gratis · Ligero · Configurable</div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-glow"></div>
+        <img src="screenshots/manwin-overlay-in-game.png" alt="El OSD transparente de ManWin mostrando las métricas sobre un juego" fetchpriority="high">
+        <div class="floating-card"><span class="live-dot"></span><span>Tu sistema, de un vistazo</span></div>
+        <span class="visual-caption">Overlay real de ManWin</span>
+      </div>
+    </section>
+
+    <section class="metric-strip page-width" aria-label="Métricas disponibles">
+      <div><span class="metric-icon cpu">C</span><span><b>CPU</b><small>Temperatura y uso</small></span></div>
+      <div><span class="metric-icon gpu">G</span><span><b>GPU</b><small>Lecturas del sensor</small></span></div>
+      <div><span class="metric-icon ram">M</span><span><b>Memoria</b><small>Uso y capacidad</small></span></div>
+      <div class="strip-caption">Actualización cada segundo</div>
+    </section>
+
+    <section class="features section-pad" id="funciones">
+      <div class="page-width">
+        <div class="section-heading">
+          <span class="section-kicker">Lo esencial, a mano</span>
+          <h2>Información útil.<br><span>Sin estorbar.</span></h2>
+          <p>ManWin mantiene tus lecturas visibles sin robarte el foco ni llenar la pantalla de paneles.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon"><span class="icon">visibility</span></div>
+            <h3>Overlay transparente</h3>
+            <p>Consulta tus métricas encima de tus juegos y aplicaciones. La ventana es atravesable al clic para que sigas usando lo que tienes debajo.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon lavender"><span class="icon">tune</span></div>
+            <h3>A tu manera</h3>
+            <p>Activa las lecturas que te interesan y guarda tu selección. El OSD se adapta a lo que quieres vigilar.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon mint"><span class="icon">space_dashboard</span></div>
+            <h3>Siempre en segundo plano</h3>
+            <p>Minimiza la ventana al área de notificación. El OSD y la lectura de sensores siguen funcionando hasta que salgas de ManWin.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="screenshots section-pad" id="capturas">
+      <div class="page-width">
+        <div class="section-heading centered">
+          <span class="section-kicker">Así se ve</span>
+          <h2>Claro, incluso en plena partida.</h2>
+          <p>Capturas reales del OSD de ManWin en acción.</p>
+        </div>
+        <div class="screenshot-grid">
+          <figure class="screenshot-card screenshot-wide">
+            <img src="screenshots/manwin-overlay-in-game-2.png" alt="OSD de ManWin sobre una escena de juego" loading="lazy">
+            <figcaption><span>01</span> Métricas a la vista, sin salir del juego</figcaption>
+          </figure>
+          <figure class="screenshot-card screenshot-detail">
+            <img src="screenshots/manwin-overlay-close-up.png" alt="Detalle del panel con lecturas de CPU, GPU y memoria" loading="lazy">
+            <figcaption><span>02</span> Lecturas fáciles de consultar</figcaption>
+          </figure>
+        </div>
+        <p class="capture-note">ManWin no mide FPS actualmente. El contador que aparece en algunas capturas pertenece al overlay del juego.</p>
+      </div>
+    </section>
+
+    <section class="how-section section-pad">
+      <div class="page-width how-layout">
+        <div class="section-heading">
+          <span class="section-kicker">Listo en un momento</span>
+          <h2>De abrirlo a tenerlo<br><span>todo bajo control.</span></h2>
+          <p>Un flujo sencillo para dejar el overlay exactamente como lo quieres.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="step-number">01</span><div><b>Elige tus métricas</b><p>Activa los sensores disponibles de CPU, GPU y memoria.</p></div></li>
+          <li><span class="step-number">02</span><div><b>Guarda tu selección</b><p>ManWin recuerda tus preferencias entre sesiones.</p></div></li>
+          <li><span class="step-number">03</span><div><b>Minimiza y continúa</b><p>El OSD queda visible mientras ManWin se oculta en la bandeja.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="requirements section-pad" id="requisitos">
+      <div class="page-width requirements-panel">
+        <div>
+          <span class="section-kicker">Antes de empezar</span>
+          <h2>Hecho para Windows.</h2>
+          <p>ManWin funciona en Windows 10 y 11 de 64 bits. Algunas lecturas dependen de los sensores que exponga tu hardware.</p>
+        </div>
+        <div class="requirements-list">
+          <div><span class="icon">desktop_windows</span><span><b>Windows 10 / 11</b><small>64 bits</small></span></div>
+          <div><span class="icon">memory</span><span><b>.NET Desktop Runtime 9</b><small>Necesario para la descarga ligera</small></span></div>
+          <div><span class="icon">web</span><span><b>WebView2 Evergreen</b><small>Incluido habitualmente en Windows 11</small></span></div>
+        </div>
+        <div class="requirements-footer"><a href="https://dotnet.microsoft.com/en-us/download/dotnet/9.0" target="_blank" rel="noreferrer">Descargar .NET 9 <span class="icon">open_in_new</span></a><a href="https://developer.microsoft.com/microsoft-edge/webview2/" target="_blank" rel="noreferrer">Instalar WebView2 <span class="icon">open_in_new</span></a></div>
+      </div>
+    </section>
+
+    <section class="final-cta page-width">
+      <div class="cta-mark">M</div>
+      <span class="section-kicker">Menos ventanas. Más claridad.</span>
+      <h2>Tu PC tiene mucho que contar.</h2>
+      <p>ManWin te ayuda a escucharlo de un vistazo.</p>
+      <a class="button primary-button" href="https://github.com/StrelokDev2010/ManWin/releases/latest">Consigue ManWin <span class="icon">arrow_forward</span></a>
+      <small>Proyecto gratuito y de código abierto</small>
+    </section>
+  </main>
+
+  <footer class="footer page-width">
+    <a class="brand" href="#inicio"><span class="brand-mark">M</span><span>ManWin</span></a>
+    <span>Monitorización sencilla, en segundo plano.</span>
+    <a href="https://github.com/StrelokDev2010/ManWin" target="_blank" rel="noreferrer">Ver el proyecto en GitHub <span class="icon">arrow_outward</span></a>
+  </footer>
+</body>
+</html>

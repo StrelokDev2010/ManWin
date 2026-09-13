@@ -84,6 +84,10 @@ The portable output is a folder containing the executable, .NET runtime, depende
 - `ManWin/wwwroot/` — HTML, CSS, and JavaScript for the Metrics page.
 - `docs/screenshots/` — screenshots shown above.
 
+## Support
+
+[![Buy me a coffee](bmc.png)](https://buymeacoffee.com/strelok_dev_8612)
+
 ## Dependencies and notices
 
 The app uses `OpenHardwareMonitorLib` 1.0.9513 and `Microsoft.Web.WebView2`, both referenced through NuGet. OpenHardwareMonitorLib is licensed under MPL-2.0 and includes third-party dependencies; see the package and upstream project for applicable notices. Some low-level readings are hardware-dependent and may require elevated permissions. ManWin does not automatically request administrator privileges.

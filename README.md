@@ -6,7 +6,7 @@ ManWin is a lightweight Windows hardware-monitoring app with a configurable on-s
 
 ## Screenshots
 
-The screenshots show ManWin's OSD over a game. The FPS counter visible in the game screenshots belongs to the game's own overlay; ManWin does not currently provide an FPS metric.
+The screenshots show ManWin's OSD over a game. FPS capture is now available as an experimental option.
 
 ![ManWin OSD over a game](docs/screenshots/manwin-overlay-in-game.png)
 
@@ -18,21 +18,25 @@ The screenshots show ManWin's OSD over a game. The FPS counter visible in the ga
 
 - Select available CPU, GPU, and memory metrics.
 - Show selected readings in a transparent, click-through OSD.
+- Customize OSD opacity, background color, per-section text colors, and vertical or horizontal layout.
+- Separate statistics with line breaks in vertical mode or `|` in horizontal mode.
 - Minimize the Metrics window to the Windows notification area while the OSD and sensor polling continue.
 - Restore Metrics by double-clicking the notification-area icon or choosing **Open Metrics**.
 - Save metric selections between runs.
+- Experimentally count DXGI or D3D9 present events from the foreground app as an FPS estimate.
 
-Available readings depend on the hardware and sensors exposed by OpenHardwareMonitorLib. ManWin polls sensors once per second. The current implementation does not include FPS measurement.
+Available hardware readings depend on the sensors exposed by OpenHardwareMonitorLib. ManWin polls hardware sensors once per second. The experimental FPS counter listens for DXGI or D3D9 ETW present events from the foreground app; it is not the full PresentMon analysis pipeline and may not work with every graphics API or game. It counts submitted presents, which can differ from frames actually displayed.
 
 ## Requirements
 
 - Windows 10 or Windows 11, x64.
 - Microsoft Edge WebView2 Evergreen Runtime. It is commonly installed on Windows 11. If it is missing, install it from the [official WebView2 page](https://developer.microsoft.com/microsoft-edge/webview2/).
 - .NET 9 SDK to build and run from source.
+- Administrator approval at startup. ManWin requests elevation to create the ETW session used for FPS capture.
 
 ### Requirements for the small release download
 
-The small release ZIP does not bundle .NET. Before running ManWin, install the **.NET 9 Desktop Runtime for Windows x64** from the [.NET 9 download page](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) (under **Run apps → .NET Desktop Runtime**). The WebView2 Evergreen Runtime is also required.
+The small release ZIP does not bundle .NET. Before running ManWin, install the **.NET 9 Desktop Runtime for Windows x64** from the [.NET 9 download page](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) (under **Run apps → .NET Desktop Runtime**). The WebView2 Evergreen Runtime is also required. Windows will ask for administrator approval when ManWin starts.
 
 ## Build and run from source
 
@@ -59,6 +63,13 @@ dotnet run --project ./ManWin/ManWin.csproj
 You can also open `ManWin.sln` in Visual Studio 2022 with the **.NET desktop development** workload and run the `ManWin` project.
 
 ## Create Windows x64 release builds
+
+The current release is available in two ZIP variants:
+
+- `ManWin-win-x64-small.zip` — smaller download; requires the .NET 9 Desktop Runtime and WebView2 Runtime.
+- `ManWin-win-x64-portable.zip` — includes the .NET runtime; WebView2 Runtime is still required.
+
+Both variants include the configurable OSD, notification-area minimization, saved settings, and experimental FPS capture. Windows asks for administrator approval at startup because FPS capture uses an ETW session.
 
 ### Small download (requires .NET Desktop Runtime)
 
@@ -87,11 +98,11 @@ dotnet publish .\ManWin\ManWin.csproj -c Release -r win-x64 --self-contained tru
 Compress-Archive -Path .\artifacts\ManWin-portable\* -DestinationPath .\artifacts\ManWin-win-x64-portable.zip -Force
 ```
 
-This larger ZIP includes the .NET runtime. WebView2 Evergreen Runtime is still required. The app stores preferences in `%LOCALAPPDATA%\ManWin\settings.json`.
+This larger ZIP includes the .NET runtime. WebView2 Evergreen Runtime is still required. Windows will ask for administrator approval when ManWin starts. The app stores preferences in `%LOCALAPPDATA%\ManWin\settings.json`.
 
 ## Usage
 
-1. Toggle the metrics you want to display.
+1. Toggle the metrics you want to display. **FPS (experimental)** listens to DXGI events from the foreground app and may not be available for every game or graphics API.
 2. Select **Save** to store your selections.
 3. Minimize the Metrics window or click **X** to hide it in the notification area. The OSD and sensor polling continue running.
 4. Double-click the ManWin notification-area icon or select **Open Metrics** to restore the window. Select **Exit ManWin** from the tray menu to close the app and stop the OSD.
@@ -100,10 +111,10 @@ This larger ZIP includes the .NET runtime. WebView2 Evergreen Runtime is still r
 ## Project structure
 
 - `ManWin/` — WPF app and WebView2 host.
-- `ManWin/Sensors/` — sensor-reading contract and OpenHardwareMonitorLib provider.
+- `ManWin/Sensors/` — sensor-reading contract, OpenHardwareMonitorLib provider, and ETW-based FPS capture.
 - `ManWin/wwwroot/` — HTML, CSS, and JavaScript for the Metrics page.
 - `docs/screenshots/` — screenshots shown above.
 
 ## Dependencies and notices
 
-The app uses `OpenHardwareMonitorLib` 1.0.9513 and `Microsoft.Web.WebView2`, both referenced through NuGet. OpenHardwareMonitorLib is licensed under MPL-2.0 and includes third-party dependencies; see the package and upstream project for applicable notices. Some low-level readings are hardware-dependent and may require elevated permissions. ManWin does not automatically request administrator privileges.
+The app uses `OpenHardwareMonitorLib` 1.0.9513, `Microsoft.Web.WebView2`, and `Microsoft.Diagnostics.Tracing.TraceEvent`, referenced through NuGet. OpenHardwareMonitorLib is licensed under MPL-2.0 and includes third-party dependencies; see the package and upstream project for applicable notices. ManWin requests administrator privileges at startup to create an ETW session for FPS capture.

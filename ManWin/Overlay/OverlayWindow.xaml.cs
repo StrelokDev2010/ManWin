@@ -13,13 +13,23 @@ public partial class OverlayWindow : Window
 {
     private static readonly string[] KnownMetrics =
     [
-        "cpu-load", "cpu-core-load", "cpu-freq", "cpu-temp", "cpu-power",
+        "cpu-load", "cpu-core-load", "cpu-freq", "cpu-temp", "cpu-power", "cpu-model",
         "gpu-load", "gpu-model", "gpu-core-freq", "gpu-mem-freq", "gpu-temp",
         "memory-temp", "junction", "gpu-fan", "gpu-power",
-        "vram", "ram", "ram-used", "ram-total"
+        "vram", "ram", "ram-used", "ram-total", "fps"
     ];
     private HashSet<string> _selected = [];
     private string? _sensorStatus;
+    private IReadOnlyList<SensorReading> _latestReadings = [];
+    private MediaColor _backgroundColor = MediaColor.FromRgb(0x10, 0x12, 0x1A);
+    private int _backgroundOpacityPercent = 70;
+    private string _layoutMode = "vertical";
+    private readonly Dictionary<string, MediaColor> _sectionTextColors = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["cpu"] = MediaColor.FromRgb(255, 255, 255),
+        ["gpu"] = MediaColor.FromRgb(255, 255, 255),
+        ["ram"] = MediaColor.FromRgb(255, 255, 255)
+    };
 
     public OverlayWindow()
     {
@@ -33,28 +43,99 @@ public partial class OverlayWindow : Window
     {
         _selected = metrics.Intersect(KnownMetrics, StringComparer.Ordinal).ToHashSet(StringComparer.Ordinal);
         Visibility = _selected.Count == 0 ? Visibility.Hidden : Visibility.Visible;
-        RefreshRows([]);
+        RefreshRows(_latestReadings);
+    }
+
+    public void SetBackgroundOpacity(int opacityPercent)
+    {
+        _backgroundOpacityPercent = Math.Clamp(opacityPercent, 20, 100);
+        ApplyBackgroundColor();
+    }
+
+    public void SetBackgroundColor(string colorHex)
+    {
+        if (System.Windows.Media.ColorConverter.ConvertFromString(colorHex) is MediaColor color)
+            _backgroundColor = color;
+        ApplyBackgroundColor();
+    }
+
+    public void SetSectionTextColor(string section, string colorHex)
+    {
+        if (!new[] { "cpu", "gpu", "ram" }.Contains(section, StringComparer.OrdinalIgnoreCase)) return;
+        if (System.Windows.Media.ColorConverter.ConvertFromString(colorHex) is not MediaColor color) return;
+        _sectionTextColors[section] = color;
+        RefreshRows(_latestReadings);
+    }
+
+    public void SetLayoutMode(string mode)
+    {
+        _layoutMode = string.Equals(mode, "horizontal", StringComparison.OrdinalIgnoreCase) ? "horizontal" : "vertical";
+        if (_layoutMode == "horizontal")
+        {
+            Width = double.NaN;
+            MaxWidth = Math.Max(270, SystemParameters.WorkArea.Width * 0.72);
+            SizeToContent = SizeToContent.WidthAndHeight;
+        }
+        else
+        {
+            MaxWidth = double.PositiveInfinity;
+            Width = 270;
+            SizeToContent = SizeToContent.Height;
+        }
+        RefreshRows(_latestReadings);
+    }
+
+    private void ApplyBackgroundColor()
+    {
+        var alpha = (byte)Math.Round(_backgroundOpacityPercent * byte.MaxValue / 100d, MidpointRounding.AwayFromZero);
+        BackgroundSurface.Background = new SolidColorBrush(MediaColor.FromArgb(alpha, _backgroundColor.R, _backgroundColor.G, _backgroundColor.B));
     }
 
     public void RefreshRows(IReadOnlyList<SensorReading> readings)
     {
+        _latestReadings = readings;
         Rows.Children.Clear();
         if (_selected.Count == 0) return;
 
         var rows = BuildRows(readings);
         if (rows.Count == 0)
         {
-            AddRow("MANWIN", _sensorStatus ?? "Waiting for sensor data…", false);
+            AddRow("", _sensorStatus ?? "Waiting for sensor data…", false, null);
             return;
         }
 
-        foreach (var row in rows) AddRow(row.Label, row.Value, row.Header);
-        var footer = new TextBlock
+        if (_layoutMode == "horizontal")
         {
-            Text = "MANWIN", Foreground = new SolidColorBrush(MediaColor.FromRgb(120, 133, 155)),
-            FontSize = 9, FontWeight = FontWeights.SemiBold, Margin = new Thickness(0, 8, 0, 0)
-        };
-        Rows.Children.Add(footer);
+            AddHorizontalRows(rows);
+            return;
+        }
+
+        foreach (var row in rows) AddRow(row.Label, row.Value, row.Header, row.Section);
+    }
+
+    private void AddHorizontalRows(IReadOnlyList<DisplayRow> rows)
+    {
+        var line = new TextBlock { FontSize = 13, TextWrapping = TextWrapping.Wrap };
+        var sections = rows.Where(row => row.Header).Select(row => row.Section).ToArray();
+        for (var index = 0; index < sections.Length; index++)
+        {
+            var section = sections[index];
+            if (index > 0)
+                line.Inlines.Add(new System.Windows.Documents.Run("  |  ") { Foreground = new SolidColorBrush(MediaColor.FromRgb(150, 155, 170)) });
+
+            var brush = _sectionTextColors.TryGetValue(section, out var color) ? new SolidColorBrush(color) : MediaBrushes.White;
+            line.Inlines.Add(new System.Windows.Documents.Run($"{section.ToUpperInvariant()}: ") { Foreground = brush, FontWeight = FontWeights.SemiBold });
+            var values = rows.Where(row => row.Section == section && !row.Header)
+                .SelectMany(row => row.Value.Split([Environment.NewLine], StringSplitOptions.RemoveEmptyEntries));
+            var valueIndex = 0;
+            foreach (var value in values)
+            {
+                if (valueIndex++ > 0)
+                    line.Inlines.Add(new System.Windows.Documents.Run(" | ") { Foreground = new SolidColorBrush(MediaColor.FromRgb(150, 155, 170)) });
+                line.Inlines.Add(new System.Windows.Documents.Run(value) { Foreground = brush });
+            }
+        }
+        Rows.Children.Add(line);
     }
 
     public void SetSensorStatus(string? status)
@@ -71,6 +152,8 @@ public partial class OverlayWindow : Window
         var ram = readings.Where(r => r.Category == "RAM").ToList();
 
         var cpuValues = new List<string>();
+        if (_selected.Contains("cpu-model") && cpu.FirstOrDefault(r => r.SensorType == "Model")?.TextValue is { Length: > 0 } cpuModel)
+            cpuValues.Add($"Model: {cpuModel}");
         if (_selected.Contains("cpu-load") && Find(cpu, "Load", "Total") is { } cpuLoad) cpuValues.Add(Format(cpuLoad));
         if (_selected.Contains("cpu-temp") && Find(cpu, "Temperature", "Package", "Core Average") is { } cpuTemp) cpuValues.Add(Format(cpuTemp));
         if (_selected.Contains("cpu-freq") && Find(cpu, "Clock", "Average", "Core") is { } cpuClock) cpuValues.Add(Format(cpuClock));
@@ -79,9 +162,9 @@ public partial class OverlayWindow : Window
         {
             var cores = cpu.Where(r => r.SensorType == "Load" && r.SensorName.Contains("Core", StringComparison.OrdinalIgnoreCase))
                 .Take(4).Select(Format).ToArray();
-            if (cores.Length > 0) cpuValues.Add(string.Join(" | ", cores));
+            if (cores.Length > 0) cpuValues.Add(string.Join(Environment.NewLine, cores));
         }
-        if (cpuValues.Count > 0) { result.Add(new("CPU", "", true)); result.Add(new("", string.Join(" | ", cpuValues), false)); }
+        if (cpuValues.Count > 0) { result.Add(new("CPU", "", true, "cpu")); result.Add(new("", string.Join(Environment.NewLine, cpuValues), false, "cpu")); }
 
         var gpuValues = new List<string>();
         if (_selected.Contains("gpu-load") && Find(gpu, "Load", "GPU Core", "Core") is { } gpuLoad) gpuValues.Add(Format(gpuLoad));
@@ -103,7 +186,7 @@ public partial class OverlayWindow : Window
             var total = memorySensors.FirstOrDefault(r => r.SensorName.Equals("GPU Memory Total", StringComparison.OrdinalIgnoreCase));
             if (used is not null) gpuValues.Add(total is null ? FormatCapacity(used) : $"VRAM {FormatCapacity(used)}/{FormatCapacity(total)}");
         }
-        if (gpuValues.Count > 0) { result.Add(new("GPU", "", true)); result.Add(new("", string.Join(" | ", gpuValues), false)); }
+        if (gpuValues.Count > 0) { result.Add(new("GPU", "", true, "gpu")); result.Add(new("", string.Join(Environment.NewLine, gpuValues), false, "gpu")); }
 
         var physicalMemory = ram.Where(r => r.HardwareName.Equals("Physical Memory", StringComparison.OrdinalIgnoreCase)).ToList();
         var ramValues = new List<string>();
@@ -115,8 +198,18 @@ public partial class OverlayWindow : Window
             ramValues.Add($"Total: {FormatCapacity(ramTotal)}");
         if (ramValues.Count > 0)
         {
-            result.Add(new("RAM", "", true));
-            result.Add(new("", string.Join(" | ", ramValues), false));
+            result.Add(new("RAM", "", true, "ram"));
+            result.Add(new("", string.Join(Environment.NewLine, ramValues), false, "ram"));
+        }
+
+        if (_selected.Contains("fps"))
+        {
+            var fpsReading = readings.FirstOrDefault(r => r.Category == "FPS");
+            var fpsValue = fpsReading is { Value: > 0 }
+                ? $"{fpsReading.Value:0}"
+                : "---";
+            result.Add(new("FPS", "", true, "fps"));
+            result.Add(new("", fpsValue, false, "fps"));
         }
         return result;
     }
@@ -138,12 +231,15 @@ public partial class OverlayWindow : Window
         return $"{gigabytes:0.0} GB";
     }
 
-    private void AddRow(string label, string value, bool header)
+    private void AddRow(string label, string value, bool header, string? section)
     {
+        var foreground = section is not null && _sectionTextColors.TryGetValue(section, out var sectionColor)
+            ? new SolidColorBrush(sectionColor)
+            : MediaBrushes.White;
         var text = new TextBlock
         {
             Text = header ? label : string.IsNullOrEmpty(label) ? value : $"{label}  {value}",
-            Foreground = header ? new SolidColorBrush(MediaColor.FromRgb(159, 178, 220)) : MediaBrushes.White,
+            Foreground = foreground,
             FontSize = header ? 11 : 13,
             FontWeight = header ? FontWeights.SemiBold : FontWeights.Normal,
             TextWrapping = TextWrapping.Wrap,
@@ -161,5 +257,5 @@ public partial class OverlayWindow : Window
 
     [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW")] private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
     [DllImport("user32.dll", EntryPoint = "SetWindowLongPtrW")] private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
-    private sealed record DisplayRow(string Label, string Value, bool Header);
+    private sealed record DisplayRow(string Label, string Value, bool Header, string Section);
 }

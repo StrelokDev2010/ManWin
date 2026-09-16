@@ -5,8 +5,8 @@
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" ShowInTaskbar="False" ShowActivated="False"
         Topmost="True">
-    <Border Margin="8" Padding="14,11" CornerRadius="13"
-            Background="#E810121A" BorderBrush="#554B5263" BorderThickness="1">
+    <Border x:Name="BackgroundSurface" Margin="8" Padding="14,11" CornerRadius="13"
+            Background="#B310121A" BorderBrush="#554B5263" BorderThickness="1">
         <StackPanel x:Name="Rows" MinWidth="220" />
     </Border>
 </Window>

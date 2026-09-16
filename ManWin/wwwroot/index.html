@@ -11,7 +11,10 @@
   <main class="app-shell">
     <header class="titlebar" id="titlebar">
       <div class="brand">MANWIN</div>
-      <h1 class="page-title">Metrics</h1>
+      <nav class="view-tabs" role="tablist" aria-label="Settings views">
+        <button class="view-tab" id="metrics-tab" type="button" role="tab" aria-selected="true" aria-controls="metrics-panel" tabindex="0">Metrics</button>
+        <button class="view-tab" id="osd-tab" type="button" role="tab" aria-selected="false" aria-controls="osd-panel" tabindex="-1">OSD</button>
+      </nav>
       <div class="window-actions">
         <button class="save-button" id="save-button">Save</button>
         <button class="minimize-button" id="minimize-button" aria-label="Minimize to notification area" title="Minimize to notification area">
@@ -23,7 +26,7 @@
       </div>
     </header>
 
-    <div class="content-scroll">
+    <div class="content-scroll view-panel" id="metrics-panel" role="tabpanel" aria-labelledby="metrics-tab">
       <section class="metric-group" aria-labelledby="gpu-title">
         <h1 id="gpu-title">GPU</h1>
         <div class="metric-grid">
@@ -48,6 +51,7 @@
           <label class="metric-option"><input type="checkbox" data-metric="cpu-freq"><span class="switch"></span><span>CPU Freq</span></label>
           <label class="metric-option"><input type="checkbox" data-metric="cpu-temp"><span class="switch"></span><span>CPU Temp</span></label>
           <label class="metric-option"><input type="checkbox" data-metric="cpu-power"><span class="switch"></span><span>CPU Power</span></label>
+          <label class="metric-option"><input type="checkbox" data-metric="cpu-model"><span class="switch"></span><span>CPU Model</span></label>
         </div>
       </section>
 
@@ -57,9 +61,76 @@
           <label class="metric-option"><input type="checkbox" data-metric="ram"><span class="switch"></span><span>RAM Usage</span></label>
           <label class="metric-option"><input type="checkbox" data-metric="ram-used"><span class="switch"></span><span>RAM Used (GB)</span></label>
           <label class="metric-option"><input type="checkbox" data-metric="ram-total"><span class="switch"></span><span>RAM Total (GB)</span></label>
+          <label class="metric-option" title="Experimental: counts DXGI or D3D9 presents from the foreground app"><input type="checkbox" data-metric="fps"><span class="switch"></span><span>FPS (experimental)</span></label>
         </div>
       </section>
     </div>
+    <section class="content-scroll view-panel osd-panel" id="osd-panel" role="tabpanel" aria-labelledby="osd-tab" hidden>
+      <div class="osd-settings">
+        <div class="osd-intro">
+          <h2>Appearance</h2>
+          <p>Adjust how the overlay looks. Changes preview immediately; select Save to keep them.</p>
+        </div>
+        <section class="setting-card" aria-labelledby="opacity-title">
+          <div class="setting-card-heading">
+            <div>
+              <h3 id="opacity-title">Background opacity</h3>
+              <p>Change the background transparency while keeping the text and border clear.</p>
+            </div>
+            <output class="opacity-value" id="opacity-value" for="osd-opacity">70%</output>
+          </div>
+          <input class="opacity-slider" id="osd-opacity" type="range" min="20" max="100" step="1" value="70" aria-label="OSD background opacity">
+          <div class="range-captions" aria-hidden="true"><span>More transparent</span><span>More opaque</span></div>
+        </section>
+        <section class="setting-card background-color-card" aria-labelledby="background-color-title">
+          <div class="setting-card-heading">
+            <div>
+              <h3 id="background-color-title">Background color</h3>
+              <p>Choose the color used behind the OSD statistics.</p>
+            </div>
+            <div class="color-control">
+              <output class="color-value" id="background-color-value" for="osd-background-color">#10121A</output>
+              <input class="color-picker" id="osd-background-color" type="color" value="#10121a" aria-label="OSD background color">
+            </div>
+          </div>
+        </section>
+        <section class="setting-card section-colors-card" aria-labelledby="section-colors-title">
+          <div class="setting-card-heading">
+            <div>
+              <h3 id="section-colors-title">Section text colors</h3>
+              <p>Choose the text color for each statistics section.</p>
+            </div>
+          </div>
+          <div class="section-color-grid">
+            <label class="section-color-option" for="osd-cpu-text-color">
+              <span>CPU</span>
+              <span class="color-control"><output class="color-value" id="cpu-text-color-value" for="osd-cpu-text-color">#FFFFFF</output><input class="color-picker" id="osd-cpu-text-color" type="color" value="#ffffff" aria-label="CPU text color"></span>
+            </label>
+            <label class="section-color-option" for="osd-gpu-text-color">
+              <span>GPU</span>
+              <span class="color-control"><output class="color-value" id="gpu-text-color-value" for="osd-gpu-text-color">#FFFFFF</output><input class="color-picker" id="osd-gpu-text-color" type="color" value="#ffffff" aria-label="GPU text color"></span>
+            </label>
+            <label class="section-color-option" for="osd-ram-text-color">
+              <span>RAM</span>
+              <span class="color-control"><output class="color-value" id="ram-text-color-value" for="osd-ram-text-color">#FFFFFF</output><input class="color-picker" id="osd-ram-text-color" type="color" value="#ffffff" aria-label="RAM text color"></span>
+            </label>
+          </div>
+        </section>
+        <section class="setting-card layout-card" aria-labelledby="layout-title">
+          <div class="setting-card-heading">
+            <div>
+              <h3 id="layout-title">Overlay layout</h3>
+              <p>Choose how the selected statistics are arranged.</p>
+            </div>
+          </div>
+          <div class="layout-options" role="group" aria-label="Overlay layout">
+            <button class="layout-option" type="button" data-layout="vertical" aria-pressed="true">Vertical</button>
+            <button class="layout-option" type="button" data-layout="horizontal" aria-pressed="false">Horizontal</button>
+          </div>
+          <p class="layout-hint">Horizontal mode separates statistics with |.</p>
+        </section>
+      </div>
+    </section>
     <div class="save-status" id="save-status" role="status" aria-live="polite"></div>
   </main>
   <script src="app.js"></script>

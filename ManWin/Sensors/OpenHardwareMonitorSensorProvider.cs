@@ -55,11 +55,11 @@ public sealed class OpenHardwareMonitorSensorProvider : ISensorProvider, IVisito
     {
         var category = GetCategory(hardware.HardwareType.ToString());
         var hardwareName = hardware.Name;
-        if (category == "GPU")
+        if (category is "CPU" or "GPU")
         {
             readings.Add(new SensorReading(
                 Id: $"{hardware.Identifier}/model",
-                Label: "GPU Model",
+                Label: $"{category} Model",
                 Value: 0,
                 Unit: string.Empty,
                 Category: category,

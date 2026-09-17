@@ -129,7 +129,8 @@ h1 span, .section-heading h2 span { color: var(--blue); }
 .final-cta small { margin-top: 13px; color: #8994a2; font-size: 11px; }
 .coffee-support { display: flex; flex-direction: column; align-items: center; gap: 11px; margin-top: 30px; padding-top: 23px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
 .coffee-link { display: inline-block; border-radius: 12px; transition: transform .2s, box-shadow .2s; }
-.coffee-link img { display: block; width: min(220px, 60vw); height: auto; border-radius: 12px; }
+.coffee-link img { display: block; width: min(165px, 48vw); height: auto; border-radius: 12px; }
+.patreon-link img { width: min(95px, 28vw); }
 .coffee-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px #d6a90040; }
 .patreon-link:hover { box-shadow: 0 8px 24px #e85d7540; }
 .support-link { margin-left: 8px; }

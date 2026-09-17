@@ -1,6 +1,7 @@
 # ManWin
 
 <a href="https://buymeacoffee.com/strelok_dev_8612"><img src="bmc.png" alt="Buy me a coffee" width="150"></a>
+&nbsp;&nbsp;&nbsp;
 <a href="https://www.patreon.com/cw/Strelok8612"><img src="patreon.png" alt="Support ManWin on Patreon" width="90"></a>
 
 ManWin is a lightweight Windows hardware-monitoring app with a configurable on-screen display (OSD). Choose the metrics you want to see, then keep the OSD running while the Metrics window is minimized to the notification area.

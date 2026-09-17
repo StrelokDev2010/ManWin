@@ -83,6 +83,9 @@
       'coffee.text': '¿Te sirve ManWin? Puedes apoyar su desarrollo.',
       'coffee.link': 'Invítame un café en Buy Me a Coffee',
       'coffee.badgeAlt': 'Buy Me a Coffee',
+      'support.button': 'Apoyar',
+      'patreon.link': 'Apoya ManWin en Patreon',
+      'patreon.badgeAlt': 'Apoya ManWin en Patreon',
       'footer.tagline': 'Monitorización sencilla, en segundo plano.',
       'footer.github': 'Ver el proyecto en GitHub'
     },
@@ -169,6 +172,9 @@
       'coffee.text': 'Finding ManWin useful? You can support its development.',
       'coffee.link': 'Buy me a coffee on Buy Me a Coffee',
       'coffee.badgeAlt': 'Buy Me a Coffee',
+      'support.button': 'Support',
+      'patreon.link': 'Support ManWin on Patreon',
+      'patreon.badgeAlt': 'Support ManWin on Patreon',
       'footer.tagline': 'Simple monitoring, running in the background.',
       'footer.github': 'View the project on GitHub'
     }
